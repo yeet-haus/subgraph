@@ -1,0 +1,24 @@
+{
+  "name": "dapeachdrop",
+  "version": "0.1.0",
+  "scripts": {
+    "create": "graph create odyssy-automaton/daohaus-boosts --node https://api.thegraph.com/deploy/",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create-local": "graph create odyssy-automaton/daohaus-boosts --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy odyssy-automaton/daohaus-boosts --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "build:all": "yarn codegen && yarn build",
+    "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
+    "prepare:xdai": "node manifests/deploy-prep.js xdai",
+    "prepare:goerli": "node manifests/deploy-prep.js goerli",
+    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare",
+    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare",
+    "deploy:goerli": "yarn prepare:goerli && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.25.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "js-yaml": "^3.13.1"
+  }
+}

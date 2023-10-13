@@ -1,0 +1,25 @@
+type Crop @entity {
+  id: ID!
+  createdAt: BigInt!
+  maxSupply: BigInt!
+  redemptionEnd: BigInt!
+  supply: BigInt!
+  redeemedTotal: BigInt!
+  balances: [Balance!] @derivedFrom(field: "crop")
+  redemptions: [Redemption!] @derivedFrom(field: "crop")
+}
+
+type Balance @entity {
+  id: ID!
+  createdAt: BigInt!
+  crop: Crop!
+  account: Bytes!
+  balance: BigInt!
+}
+
+type Redemption @entity {
+  id: ID!
+  createdAt: BigInt!
+  amount: BigInt!
+  crop: Crop!
+}

@@ -1,0 +1,7 @@
+specVersion: 0.0.2
+description: CurveDemoSubgraph
+repository: "https://github.com/skuhlmann/curve-demo-subgraph"
+schema:
+  file: ./schema.graphql
+dataSources: []
+templates: []

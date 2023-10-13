@@ -1,0 +1,33 @@
+specVersion: 0.0.4
+description: CurveDemoSubgraph
+repository: 'https://github.com/skuhlmann/curve-demo-subgraph'
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: curve
+    network: goerli
+    source:
+      address: '0xf4834eC6AB1D846Aa3eF9F7063c9ac75EA18A9B9'
+      abi: curve
+      startBlock: 9861555
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Crop
+        - Balance
+        - Redemption
+      abis:
+        - name: curve
+          file: ./abis/curve.json
+      eventHandlers:
+        - event: 'Create(address,uint256,uint256)'
+          handler: handleCreate
+        - event: 'Redeem(address,address,uint256)'
+          handler: handleRedeem
+        - event: 'Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)'
+          handler: handleTrade
+      file: ./src/curve-mapping.ts
+templates: []
