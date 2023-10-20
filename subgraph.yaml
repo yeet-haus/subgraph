@@ -1,16 +1,16 @@
 specVersion: 0.0.4
-description: CurveDemoSubgraph
-repository: 'https://github.com/skuhlmann/curve-demo-subgraph'
+description: PopcartSubgraph
+repository: 'https://github.com/odyssy-automaton/popcart-subgraph'
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: curve
+    name: popcart
     network: goerli
     source:
-      address: '0xf4834eC6AB1D846Aa3eF9F7063c9ac75EA18A9B9'
-      abi: curve
-      startBlock: 9861555
+      address: '0x7007b0e366436370FA27479Fe0D331a8C156222C'
+      abi: popcart
+      startBlock: 9901460
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -20,14 +20,14 @@ dataSources:
         - Balance
         - Redemption
       abis:
-        - name: curve
-          file: ./abis/curve.json
+        - name: popcart
+          file: ./abis/popcart.json
       eventHandlers:
-        - event: 'Create(address,uint256,uint256)'
+        - event: 'Create(address,uint256,uint256,uint256)'
           handler: handleCreate
         - event: 'Redeem(address,address,uint256)'
           handler: handleRedeem
         - event: 'Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)'
           handler: handleTrade
-      file: ./src/curve-mapping.ts
+      file: ./src/popcart-mapping.ts
 templates: []

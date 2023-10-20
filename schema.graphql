@@ -1,18 +1,19 @@
-type Crop @entity {
+type PopSubject @entity {
   id: ID!
   createdAt: BigInt!
   maxSupply: BigInt!
   redemptionEnd: BigInt!
+  floorPrice: BigInt!
   supply: BigInt!
   redeemedTotal: BigInt!
-  balances: [Balance!] @derivedFrom(field: "crop")
-  redemptions: [Redemption!] @derivedFrom(field: "crop")
+  balances: [Balance!] @derivedFrom(field: "popSubject")
+  redemptions: [Redemption!] @derivedFrom(field: "popSubject")
 }
 
 type Balance @entity {
   id: ID!
   createdAt: BigInt!
-  crop: Crop!
+  popSubject: PopSubject!
   account: Bytes!
   balance: BigInt!
 }
@@ -21,5 +22,5 @@ type Redemption @entity {
   id: ID!
   createdAt: BigInt!
   amount: BigInt!
-  crop: Crop!
+  popSubject: PopSubject!
 }

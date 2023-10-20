@@ -1,9 +1,9 @@
 kind: ethereum/contract
-name: curve
+name: popcart
 network:
 source:
   address: ""
-  abi: curve
+  abi: popcart
   startBlock:
 mapping:
   kind: ethereum/events
@@ -14,13 +14,13 @@ mapping:
     - Balance
     - Redemption
   abis:
-    - name: curve
-      file: ./abis/curve.json
+    - name: popcart
+      file: ./abis/popcart.json
   eventHandlers:
-    - event: Create(address,uint256,uint256)
+    - event: Create(address,uint256,uint256,uint256)
       handler: handleCreate
     - event: Redeem(address,address,uint256)
       handler: handleRedeem
     - event: Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)
       handler: handleTrade
-  file: ./src/curve-mapping.ts
+  file: ./src/popcart-mapping.ts

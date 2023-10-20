@@ -11,7 +11,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class Crop extends Entity {
+export class PopSubject extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,18 +19,18 @@ export class Crop extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Crop entity without an ID");
+    assert(id != null, "Cannot save PopSubject entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Crop must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type PopSubject must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Crop", id.toString(), this);
+      store.set("PopSubject", id.toString(), this);
     }
   }
 
-  static load(id: string): Crop | null {
-    return changetype<Crop | null>(store.get("Crop", id));
+  static load(id: string): PopSubject | null {
+    return changetype<PopSubject | null>(store.get("PopSubject", id));
   }
 
   get id(): string {
@@ -67,6 +67,15 @@ export class Crop extends Entity {
 
   set redemptionEnd(value: BigInt) {
     this.set("redemptionEnd", Value.fromBigInt(value));
+  }
+
+  get floorPrice(): BigInt {
+    let value = this.get("floorPrice");
+    return value!.toBigInt();
+  }
+
+  set floorPrice(value: BigInt) {
+    this.set("floorPrice", Value.fromBigInt(value));
   }
 
   get supply(): BigInt {
@@ -162,13 +171,13 @@ export class Balance extends Entity {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
-  get crop(): string {
-    let value = this.get("crop");
+  get popSubject(): string {
+    let value = this.get("popSubject");
     return value!.toString();
   }
 
-  set crop(value: string) {
-    this.set("crop", Value.fromString(value));
+  set popSubject(value: string) {
+    this.set("popSubject", Value.fromString(value));
   }
 
   get account(): Bytes {
@@ -239,12 +248,12 @@ export class Redemption extends Entity {
     this.set("amount", Value.fromBigInt(value));
   }
 
-  get crop(): string {
-    let value = this.get("crop");
+  get popSubject(): string {
+    let value = this.get("popSubject");
     return value!.toString();
   }
 
-  set crop(value: string) {
-    this.set("crop", Value.fromString(value));
+  set popSubject(value: string) {
+    this.set("popSubject", Value.fromString(value));
   }
 }

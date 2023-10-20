@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: CurveDemoSubgraph
-repository: "https://github.com/skuhlmann/curve-demo-subgraph"
+description: PopcartSubgraph
+repository: "https://github.com/odyssy-automaton/popcart-subgraph"
 schema:
   file: ./schema.graphql
 dataSources: []

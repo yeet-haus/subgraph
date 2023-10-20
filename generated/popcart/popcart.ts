@@ -34,6 +34,10 @@ export class Create__Params {
   get redemptionEnd(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
+
+  get floorPrice(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
 }
 
 export class OwnershipTransferred extends ethereum.Event {
@@ -79,7 +83,7 @@ export class Redeem__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get cropAmount(): BigInt {
+  get popAmount(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 }
@@ -109,7 +113,7 @@ export class Trade__Params {
     return this._event.parameters[2].value.toBoolean();
   }
 
-  get cropAmount(): BigInt {
+  get popAmount(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
 
@@ -130,108 +134,49 @@ export class Trade__Params {
   }
 }
 
-export class curve extends ethereum.SmartContract {
-  static bind(address: Address): curve {
-    return new curve("curve", address);
+export class popcart__popSubjectConfigResult {
+  value0: BigInt;
+  value1: BigInt;
+  value2: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt, value2: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
   }
 
-  cropBalance(param0: Address, param1: Address): BigInt {
-    let result = super.call(
-      "cropBalance",
-      "cropBalance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
-    );
-
-    return result[0].toBigInt();
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    return map;
   }
 
-  try_cropBalance(
-    param0: Address,
-    param1: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "cropBalance",
-      "cropBalance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  getMaxSupply(): BigInt {
+    return this.value0;
   }
 
-  cropMaxSupply(param0: Address): BigInt {
-    let result = super.call(
-      "cropMaxSupply",
-      "cropMaxSupply(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBigInt();
+  getRedemptionEnd(): BigInt {
+    return this.value1;
   }
 
-  try_cropMaxSupply(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "cropMaxSupply",
-      "cropMaxSupply(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  getFloorPrice(): BigInt {
+    return this.value2;
+  }
+}
+
+export class popcart extends ethereum.SmartContract {
+  static bind(address: Address): popcart {
+    return new popcart("popcart", address);
   }
 
-  cropRedemptionEnd(param0: Address): BigInt {
-    let result = super.call(
-      "cropRedemptionEnd",
-      "cropRedemptionEnd(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_cropRedemptionEnd(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "cropRedemptionEnd",
-      "cropRedemptionEnd(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  cropSupply(param0: Address): BigInt {
-    let result = super.call("cropSupply", "cropSupply(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_cropSupply(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("cropSupply", "cropSupply(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getBuyPrice(cropSubject: Address, amount: BigInt): BigInt {
+  getBuyPrice(popSubject: Address, amount: BigInt): BigInt {
     let result = super.call(
       "getBuyPrice",
       "getBuyPrice(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -240,14 +185,14 @@ export class curve extends ethereum.SmartContract {
   }
 
   try_getBuyPrice(
-    cropSubject: Address,
+    popSubject: Address,
     amount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getBuyPrice",
       "getBuyPrice(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -258,12 +203,12 @@ export class curve extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getBuyPriceAfterFee(cropSubject: Address, amount: BigInt): BigInt {
+  getBuyPriceAfterFee(popSubject: Address, amount: BigInt): BigInt {
     let result = super.call(
       "getBuyPriceAfterFee",
       "getBuyPriceAfterFee(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -272,14 +217,14 @@ export class curve extends ethereum.SmartContract {
   }
 
   try_getBuyPriceAfterFee(
-    cropSubject: Address,
+    popSubject: Address,
     amount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getBuyPriceAfterFee",
       "getBuyPriceAfterFee(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -290,22 +235,32 @@ export class curve extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getPrice(supply: BigInt, amount: BigInt): BigInt {
-    let result = super.call("getPrice", "getPrice(uint256,uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(supply),
-      ethereum.Value.fromUnsignedBigInt(amount)
-    ]);
+  getPrice(supply: BigInt, amount: BigInt, floorPrice: BigInt): BigInt {
+    let result = super.call(
+      "getPrice",
+      "getPrice(uint256,uint256,uint256):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(supply),
+        ethereum.Value.fromUnsignedBigInt(amount),
+        ethereum.Value.fromUnsignedBigInt(floorPrice)
+      ]
+    );
 
     return result[0].toBigInt();
   }
 
-  try_getPrice(supply: BigInt, amount: BigInt): ethereum.CallResult<BigInt> {
+  try_getPrice(
+    supply: BigInt,
+    amount: BigInt,
+    floorPrice: BigInt
+  ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getPrice",
-      "getPrice(uint256,uint256):(uint256)",
+      "getPrice(uint256,uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(supply),
-        ethereum.Value.fromUnsignedBigInt(amount)
+        ethereum.Value.fromUnsignedBigInt(amount),
+        ethereum.Value.fromUnsignedBigInt(floorPrice)
       ]
     );
     if (result.reverted) {
@@ -315,12 +270,12 @@ export class curve extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getSellPrice(cropSubject: Address, amount: BigInt): BigInt {
+  getSellPrice(popSubject: Address, amount: BigInt): BigInt {
     let result = super.call(
       "getSellPrice",
       "getSellPrice(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -329,14 +284,14 @@ export class curve extends ethereum.SmartContract {
   }
 
   try_getSellPrice(
-    cropSubject: Address,
+    popSubject: Address,
     amount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getSellPrice",
       "getSellPrice(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -347,12 +302,12 @@ export class curve extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getSellPriceAfterFee(cropSubject: Address, amount: BigInt): BigInt {
+  getSellPriceAfterFee(popSubject: Address, amount: BigInt): BigInt {
     let result = super.call(
       "getSellPriceAfterFee",
       "getSellPriceAfterFee(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -361,14 +316,14 @@ export class curve extends ethereum.SmartContract {
   }
 
   try_getSellPriceAfterFee(
-    cropSubject: Address,
+    popSubject: Address,
     amount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getSellPriceAfterFee",
       "getSellPriceAfterFee(address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(cropSubject),
+        ethereum.Value.fromAddress(popSubject),
         ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
@@ -392,6 +347,109 @@ export class curve extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  popBalance(param0: Address, param1: Address): BigInt {
+    let result = super.call(
+      "popBalance",
+      "popBalance(address,address):(uint256)",
+      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_popBalance(
+    param0: Address,
+    param1: Address
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "popBalance",
+      "popBalance(address,address):(uint256)",
+      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  popRedemptions(param0: Address): BigInt {
+    let result = super.call(
+      "popRedemptions",
+      "popRedemptions(address):(uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_popRedemptions(param0: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "popRedemptions",
+      "popRedemptions(address):(uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  popSubjectConfig(param0: Address): popcart__popSubjectConfigResult {
+    let result = super.call(
+      "popSubjectConfig",
+      "popSubjectConfig(address):(uint256,uint256,uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+
+    return new popcart__popSubjectConfigResult(
+      result[0].toBigInt(),
+      result[1].toBigInt(),
+      result[2].toBigInt()
+    );
+  }
+
+  try_popSubjectConfig(
+    param0: Address
+  ): ethereum.CallResult<popcart__popSubjectConfigResult> {
+    let result = super.tryCall(
+      "popSubjectConfig",
+      "popSubjectConfig(address):(uint256,uint256,uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new popcart__popSubjectConfigResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt()
+      )
+    );
+  }
+
+  popSupply(param0: Address): BigInt {
+    let result = super.call("popSupply", "popSupply(address):(uint256)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_popSupply(param0: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("popSupply", "popSupply(address):(uint256)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   protocolFeeDestination(): Address {
@@ -464,24 +522,24 @@ export class curve extends ethereum.SmartContract {
   }
 }
 
-export class BuyCropsCall extends ethereum.Call {
-  get inputs(): BuyCropsCall__Inputs {
-    return new BuyCropsCall__Inputs(this);
+export class BuyPopsCall extends ethereum.Call {
+  get inputs(): BuyPopsCall__Inputs {
+    return new BuyPopsCall__Inputs(this);
   }
 
-  get outputs(): BuyCropsCall__Outputs {
-    return new BuyCropsCall__Outputs(this);
+  get outputs(): BuyPopsCall__Outputs {
+    return new BuyPopsCall__Outputs(this);
   }
 }
 
-export class BuyCropsCall__Inputs {
-  _call: BuyCropsCall;
+export class BuyPopsCall__Inputs {
+  _call: BuyPopsCall;
 
-  constructor(call: BuyCropsCall) {
+  constructor(call: BuyPopsCall) {
     this._call = call;
   }
 
-  get cropSubject(): Address {
+  get popSubject(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
@@ -490,32 +548,32 @@ export class BuyCropsCall__Inputs {
   }
 }
 
-export class BuyCropsCall__Outputs {
-  _call: BuyCropsCall;
+export class BuyPopsCall__Outputs {
+  _call: BuyPopsCall;
 
-  constructor(call: BuyCropsCall) {
+  constructor(call: BuyPopsCall) {
     this._call = call;
   }
 }
 
-export class CreateCropCall extends ethereum.Call {
-  get inputs(): CreateCropCall__Inputs {
-    return new CreateCropCall__Inputs(this);
+export class CreatePopCall extends ethereum.Call {
+  get inputs(): CreatePopCall__Inputs {
+    return new CreatePopCall__Inputs(this);
   }
 
-  get outputs(): CreateCropCall__Outputs {
-    return new CreateCropCall__Outputs(this);
+  get outputs(): CreatePopCall__Outputs {
+    return new CreatePopCall__Outputs(this);
   }
 }
 
-export class CreateCropCall__Inputs {
-  _call: CreateCropCall;
+export class CreatePopCall__Inputs {
+  _call: CreatePopCall;
 
-  constructor(call: CreateCropCall) {
+  constructor(call: CreatePopCall) {
     this._call = call;
   }
 
-  get cropSubject(): Address {
+  get popSubject(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
@@ -527,37 +585,41 @@ export class CreateCropCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get amount(): BigInt {
+  get floorPrice(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
+
+  get amount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
 }
 
-export class CreateCropCall__Outputs {
-  _call: CreateCropCall;
+export class CreatePopCall__Outputs {
+  _call: CreatePopCall;
 
-  constructor(call: CreateCropCall) {
+  constructor(call: CreatePopCall) {
     this._call = call;
   }
 }
 
-export class RedeemCall extends ethereum.Call {
-  get inputs(): RedeemCall__Inputs {
-    return new RedeemCall__Inputs(this);
+export class RedeemPopsCall extends ethereum.Call {
+  get inputs(): RedeemPopsCall__Inputs {
+    return new RedeemPopsCall__Inputs(this);
   }
 
-  get outputs(): RedeemCall__Outputs {
-    return new RedeemCall__Outputs(this);
+  get outputs(): RedeemPopsCall__Outputs {
+    return new RedeemPopsCall__Outputs(this);
   }
 }
 
-export class RedeemCall__Inputs {
-  _call: RedeemCall;
+export class RedeemPopsCall__Inputs {
+  _call: RedeemPopsCall;
 
-  constructor(call: RedeemCall) {
+  constructor(call: RedeemPopsCall) {
     this._call = call;
   }
 
-  get cropSubject(): Address {
+  get popSubject(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
@@ -566,10 +628,10 @@ export class RedeemCall__Inputs {
   }
 }
 
-export class RedeemCall__Outputs {
-  _call: RedeemCall;
+export class RedeemPopsCall__Outputs {
+  _call: RedeemPopsCall;
 
-  constructor(call: RedeemCall) {
+  constructor(call: RedeemPopsCall) {
     this._call = call;
   }
 }
@@ -600,24 +662,24 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
-export class SellCropsCall extends ethereum.Call {
-  get inputs(): SellCropsCall__Inputs {
-    return new SellCropsCall__Inputs(this);
+export class SellPopsCall extends ethereum.Call {
+  get inputs(): SellPopsCall__Inputs {
+    return new SellPopsCall__Inputs(this);
   }
 
-  get outputs(): SellCropsCall__Outputs {
-    return new SellCropsCall__Outputs(this);
+  get outputs(): SellPopsCall__Outputs {
+    return new SellPopsCall__Outputs(this);
   }
 }
 
-export class SellCropsCall__Inputs {
-  _call: SellCropsCall;
+export class SellPopsCall__Inputs {
+  _call: SellPopsCall;
 
-  constructor(call: SellCropsCall) {
+  constructor(call: SellPopsCall) {
     this._call = call;
   }
 
-  get cropSubject(): Address {
+  get popSubject(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
@@ -626,10 +688,10 @@ export class SellCropsCall__Inputs {
   }
 }
 
-export class SellCropsCall__Outputs {
-  _call: SellCropsCall;
+export class SellPopsCall__Outputs {
+  _call: SellPopsCall;
 
-  constructor(call: SellCropsCall) {
+  constructor(call: SellPopsCall) {
     this._call = call;
   }
 }

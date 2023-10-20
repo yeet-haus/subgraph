@@ -1,5 +1,5 @@
 {
-  "name": "dapeachdrop",
+  "name": "popcart",
   "version": "0.1.0",
   "scripts": {
     "create": "graph create odyssy-automaton/daohaus-boosts --node https://api.thegraph.com/deploy/",

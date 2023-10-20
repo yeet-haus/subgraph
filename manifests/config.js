@@ -14,10 +14,10 @@ module.exports.config = {
   goerli: {
     dataSources: [
       {
-        name: "peachdrop",
-        template: "curve-ds.yaml",
-        address: "0xf4834eC6AB1D846Aa3eF9F7063c9ac75EA18A9B9",
-        startBlock: 9861555,
+        name: "popcart",
+        template: "popcart-ds.yaml",
+        address: "0x7007b0e366436370FA27479Fe0D331a8C156222C",
+        startBlock: 9901460,
       },
     ],
     templates: [],
