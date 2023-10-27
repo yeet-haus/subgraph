@@ -16,8 +16,8 @@ module.exports.config = {
       {
         name: "popcart",
         template: "popcart-ds.yaml",
-        address: "0x7007b0e366436370FA27479Fe0D331a8C156222C",
-        startBlock: 9901460,
+        address: "0x34a90791b68C90Bbbf30C167cBbCdb8AC0D5B7Ea",
+        startBlock: 9917780,
       },
     ],
     templates: [],

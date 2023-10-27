@@ -171,6 +171,29 @@ export class popcart extends ethereum.SmartContract {
     return new popcart("popcart", address);
   }
 
+  getAvailableSupply(popSubject: Address): BigInt {
+    let result = super.call(
+      "getAvailableSupply",
+      "getAvailableSupply(address):(uint256)",
+      [ethereum.Value.fromAddress(popSubject)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getAvailableSupply(popSubject: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getAvailableSupply",
+      "getAvailableSupply(address):(uint256)",
+      [ethereum.Value.fromAddress(popSubject)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getBuyPrice(popSubject: Address, amount: BigInt): BigInt {
     let result = super.call(
       "getBuyPrice",
@@ -366,6 +389,32 @@ export class popcart extends ethereum.SmartContract {
     let result = super.tryCall(
       "popBalance",
       "popBalance(address,address):(uint256)",
+      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  popRedemptionBalance(param0: Address, param1: Address): BigInt {
+    let result = super.call(
+      "popRedemptionBalance",
+      "popRedemptionBalance(address,address):(uint256)",
+      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_popRedemptionBalance(
+    param0: Address,
+    param1: Address
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "popRedemptionBalance",
+      "popRedemptionBalance(address,address):(uint256)",
       [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
     );
     if (result.reverted) {

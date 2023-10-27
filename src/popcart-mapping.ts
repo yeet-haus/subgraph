@@ -1,6 +1,11 @@
 import { log, BigInt } from "@graphprotocol/graph-ts";
 import { Create, Redeem, Trade } from "../generated/popcart/popcart";
-import { PopSubject, Balance, Redemption } from "../generated/schema";
+import {
+  PopSubject,
+  Balance,
+  Redemption,
+  Trade as TradeEntity,
+} from "../generated/schema";
 
 export function handleCreate(event: Create): void {
   let popId = event.params.subject.toHexString();
@@ -47,6 +52,20 @@ export function handleTrade(event: Trade): void {
 
   pop.supply = event.params.supply;
 
+  let tradeId = popId.concat("-").concat(event.block.timestamp.toString());
+  let trade = new TradeEntity(tradeId);
+
+  trade.createdAt = event.block.timestamp;
+  trade.account = event.params.trader;
+  trade.popSubject = popId;
+  trade.isBuy = event.params.isBuy;
+  trade.ethAmount = event.params.ethAmount;
+  trade.popAmount = event.params.popAmount;
+  trade.protocolEthAmount = event.params.protocolEthAmount;
+  trade.subjectEthAmount = event.params.subjectEthAmount;
+  trade.supply = event.params.supply;
+
+  trade.save();
   pop.save();
   balance.save();
 }

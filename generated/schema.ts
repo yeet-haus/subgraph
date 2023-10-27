@@ -129,6 +129,23 @@ export class PopSubject extends Entity {
       this.set("redemptions", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get trades(): Array<string> | null {
+    let value = this.get("trades");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set trades(value: Array<string> | null) {
+    if (!value) {
+      this.unset("trades");
+    } else {
+      this.set("trades", Value.fromStringArray(<Array<string>>value));
+    }
+  }
 }
 
 export class Balance extends Entity {
@@ -255,5 +272,118 @@ export class Redemption extends Entity {
 
   set popSubject(value: string) {
     this.set("popSubject", Value.fromString(value));
+  }
+}
+
+export class Trade extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Trade entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Trade must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Trade", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Trade | null {
+    return changetype<Trade | null>(store.get("Trade", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value!.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get popSubject(): string {
+    let value = this.get("popSubject");
+    return value!.toString();
+  }
+
+  set popSubject(value: string) {
+    this.set("popSubject", Value.fromString(value));
+  }
+
+  get isBuy(): boolean {
+    let value = this.get("isBuy");
+    return value!.toBoolean();
+  }
+
+  set isBuy(value: boolean) {
+    this.set("isBuy", Value.fromBoolean(value));
+  }
+
+  get ethAmount(): BigInt {
+    let value = this.get("ethAmount");
+    return value!.toBigInt();
+  }
+
+  set ethAmount(value: BigInt) {
+    this.set("ethAmount", Value.fromBigInt(value));
+  }
+
+  get popAmount(): BigInt {
+    let value = this.get("popAmount");
+    return value!.toBigInt();
+  }
+
+  set popAmount(value: BigInt) {
+    this.set("popAmount", Value.fromBigInt(value));
+  }
+
+  get protocolEthAmount(): BigInt {
+    let value = this.get("protocolEthAmount");
+    return value!.toBigInt();
+  }
+
+  set protocolEthAmount(value: BigInt) {
+    this.set("protocolEthAmount", Value.fromBigInt(value));
+  }
+
+  get subjectEthAmount(): BigInt {
+    let value = this.get("subjectEthAmount");
+    return value!.toBigInt();
+  }
+
+  set subjectEthAmount(value: BigInt) {
+    this.set("subjectEthAmount", Value.fromBigInt(value));
+  }
+
+  get supply(): BigInt {
+    let value = this.get("supply");
+    return value!.toBigInt();
+  }
+
+  set supply(value: BigInt) {
+    this.set("supply", Value.fromBigInt(value));
   }
 }

@@ -8,6 +8,7 @@ type PopSubject @entity {
   redeemedTotal: BigInt!
   balances: [Balance!] @derivedFrom(field: "popSubject")
   redemptions: [Redemption!] @derivedFrom(field: "popSubject")
+  trades: [Redemption!] @derivedFrom(field: "popSubject")
 }
 
 type Balance @entity {
@@ -23,4 +24,17 @@ type Redemption @entity {
   createdAt: BigInt!
   amount: BigInt!
   popSubject: PopSubject!
+}
+
+type Trade @entity {
+  id: ID!
+  createdAt: BigInt!
+  account: Bytes!
+  popSubject: PopSubject!
+  isBuy: Boolean!
+  ethAmount: BigInt!
+  popAmount: BigInt!
+  protocolEthAmount: BigInt!
+  subjectEthAmount: BigInt!
+  supply: BigInt!
 }
