@@ -11,7 +11,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class PopSubject extends Entity {
+export class Dao extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,18 +19,18 @@ export class PopSubject extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save PopSubject entity without an ID");
+    assert(id != null, "Cannot save Dao entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type PopSubject must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Dao must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("PopSubject", id.toString(), this);
+      store.set("Dao", id.toString(), this);
     }
   }
 
-  static load(id: string): PopSubject | null {
-    return changetype<PopSubject | null>(store.get("PopSubject", id));
+  static load(id: string): Dao | null {
+    return changetype<Dao | null>(store.get("Dao", id));
   }
 
   get id(): string {
@@ -51,53 +51,8 @@ export class PopSubject extends Entity {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
-  get maxSupply(): BigInt {
-    let value = this.get("maxSupply");
-    return value!.toBigInt();
-  }
-
-  set maxSupply(value: BigInt) {
-    this.set("maxSupply", Value.fromBigInt(value));
-  }
-
-  get redemptionEnd(): BigInt {
-    let value = this.get("redemptionEnd");
-    return value!.toBigInt();
-  }
-
-  set redemptionEnd(value: BigInt) {
-    this.set("redemptionEnd", Value.fromBigInt(value));
-  }
-
-  get floorPrice(): BigInt {
-    let value = this.get("floorPrice");
-    return value!.toBigInt();
-  }
-
-  set floorPrice(value: BigInt) {
-    this.set("floorPrice", Value.fromBigInt(value));
-  }
-
-  get supply(): BigInt {
-    let value = this.get("supply");
-    return value!.toBigInt();
-  }
-
-  set supply(value: BigInt) {
-    this.set("supply", Value.fromBigInt(value));
-  }
-
-  get redeemedTotal(): BigInt {
-    let value = this.get("redeemedTotal");
-    return value!.toBigInt();
-  }
-
-  set redeemedTotal(value: BigInt) {
-    this.set("redeemedTotal", Value.fromBigInt(value));
-  }
-
-  get balances(): Array<string> | null {
-    let value = this.get("balances");
+  get yeeters(): Array<string> | null {
+    let value = this.get("yeeters");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -105,16 +60,16 @@ export class PopSubject extends Entity {
     }
   }
 
-  set balances(value: Array<string> | null) {
+  set yeeters(value: Array<string> | null) {
     if (!value) {
-      this.unset("balances");
+      this.unset("yeeters");
     } else {
-      this.set("balances", Value.fromStringArray(<Array<string>>value));
+      this.set("yeeters", Value.fromStringArray(<Array<string>>value));
     }
   }
 
-  get redemptions(): Array<string> | null {
-    let value = this.get("redemptions");
+  get yeets(): Array<string> | null {
+    let value = this.get("yeets");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -122,33 +77,16 @@ export class PopSubject extends Entity {
     }
   }
 
-  set redemptions(value: Array<string> | null) {
+  set yeets(value: Array<string> | null) {
     if (!value) {
-      this.unset("redemptions");
+      this.unset("yeets");
     } else {
-      this.set("redemptions", Value.fromStringArray(<Array<string>>value));
-    }
-  }
-
-  get trades(): Array<string> | null {
-    let value = this.get("trades");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set trades(value: Array<string> | null) {
-    if (!value) {
-      this.unset("trades");
-    } else {
-      this.set("trades", Value.fromStringArray(<Array<string>>value));
+      this.set("yeets", Value.fromStringArray(<Array<string>>value));
     }
   }
 }
 
-export class Balance extends Entity {
+export class Yeeter extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -156,18 +94,18 @@ export class Balance extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Balance entity without an ID");
+    assert(id != null, "Cannot save Yeeter entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Balance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Yeeter must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Balance", id.toString(), this);
+      store.set("Yeeter", id.toString(), this);
     }
   }
 
-  static load(id: string): Balance | null {
-    return changetype<Balance | null>(store.get("Balance", id));
+  static load(id: string): Yeeter | null {
+    return changetype<Yeeter | null>(store.get("Yeeter", id));
   }
 
   get id(): string {
@@ -188,22 +126,107 @@ export class Balance extends Entity {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
-  get popSubject(): string {
-    let value = this.get("popSubject");
+  get dao(): string {
+    let value = this.get("dao");
     return value!.toString();
   }
 
-  set popSubject(value: string) {
-    this.set("popSubject", Value.fromString(value));
+  set dao(value: string) {
+    this.set("dao", Value.fromString(value));
   }
 
-  get account(): Bytes {
-    let value = this.get("account");
-    return value!.toBytes();
+  get startTime(): BigInt | null {
+    let value = this.get("startTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set account(value: Bytes) {
-    this.set("account", Value.fromBytes(value));
+  set startTime(value: BigInt | null) {
+    if (!value) {
+      this.unset("startTime");
+    } else {
+      this.set("startTime", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get endTime(): BigInt | null {
+    let value = this.get("endTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set endTime(value: BigInt | null) {
+    if (!value) {
+      this.unset("endTime");
+    } else {
+      this.set("endTime", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get isShares(): boolean {
+    let value = this.get("isShares");
+    return value!.toBoolean();
+  }
+
+  set isShares(value: boolean) {
+    this.set("isShares", Value.fromBoolean(value));
+  }
+
+  get multiplier(): BigInt | null {
+    let value = this.get("multiplier");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set multiplier(value: BigInt | null) {
+    if (!value) {
+      this.unset("multiplier");
+    } else {
+      this.set("multiplier", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get minTribute(): BigInt | null {
+    let value = this.get("minTribute");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set minTribute(value: BigInt | null) {
+    if (!value) {
+      this.unset("minTribute");
+    } else {
+      this.set("minTribute", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get maxTarget(): BigInt | null {
+    let value = this.get("maxTarget");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxTarget(value: BigInt | null) {
+    if (!value) {
+      this.unset("maxTarget");
+    } else {
+      this.set("maxTarget", Value.fromBigInt(<BigInt>value));
+    }
   }
 
   get balance(): BigInt {
@@ -214,9 +237,52 @@ export class Balance extends Entity {
   set balance(value: BigInt) {
     this.set("balance", Value.fromBigInt(value));
   }
+
+  get vault(): Bytes | null {
+    let value = this.get("vault");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set vault(value: Bytes | null) {
+    if (!value) {
+      this.unset("vault");
+    } else {
+      this.set("vault", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get yeetCount(): BigInt {
+    let value = this.get("yeetCount");
+    return value!.toBigInt();
+  }
+
+  set yeetCount(value: BigInt) {
+    this.set("yeetCount", Value.fromBigInt(value));
+  }
+
+  get yeets(): Array<string> | null {
+    let value = this.get("yeets");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set yeets(value: Array<string> | null) {
+    if (!value) {
+      this.unset("yeets");
+    } else {
+      this.set("yeets", Value.fromStringArray(<Array<string>>value));
+    }
+  }
 }
 
-export class Redemption extends Entity {
+export class Yeet extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -224,18 +290,18 @@ export class Redemption extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Redemption entity without an ID");
+    assert(id != null, "Cannot save Yeet entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Redemption must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Yeet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Redemption", id.toString(), this);
+      store.set("Yeet", id.toString(), this);
     }
   }
 
-  static load(id: string): Redemption | null {
-    return changetype<Redemption | null>(store.get("Redemption", id));
+  static load(id: string): Yeet | null {
+    return changetype<Yeet | null>(store.get("Yeet", id));
   }
 
   get id(): string {
@@ -254,6 +320,33 @@ export class Redemption extends Entity {
 
   set createdAt(value: BigInt) {
     this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get dao(): string {
+    let value = this.get("dao");
+    return value!.toString();
+  }
+
+  set dao(value: string) {
+    this.set("dao", Value.fromString(value));
+  }
+
+  get yeeter(): string {
+    let value = this.get("yeeter");
+    return value!.toString();
+  }
+
+  set yeeter(value: string) {
+    this.set("yeeter", Value.fromString(value));
+  }
+
+  get contributor(): Bytes {
+    let value = this.get("contributor");
+    return value!.toBytes();
+  }
+
+  set contributor(value: Bytes) {
+    this.set("contributor", Value.fromBytes(value));
   }
 
   get amount(): BigInt {
@@ -265,125 +358,29 @@ export class Redemption extends Entity {
     this.set("amount", Value.fromBigInt(value));
   }
 
-  get popSubject(): string {
-    let value = this.get("popSubject");
-    return value!.toString();
+  get shares(): BigInt {
+    let value = this.get("shares");
+    return value!.toBigInt();
   }
 
-  set popSubject(value: string) {
-    this.set("popSubject", Value.fromString(value));
-  }
-}
-
-export class Trade extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
+  set shares(value: BigInt) {
+    this.set("shares", Value.fromBigInt(value));
   }
 
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Trade entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type Trade must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("Trade", id.toString(), this);
+  get message(): string | null {
+    let value = this.get("message");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
     }
   }
 
-  static load(id: string): Trade | null {
-    return changetype<Trade | null>(store.get("Trade", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get createdAt(): BigInt {
-    let value = this.get("createdAt");
-    return value!.toBigInt();
-  }
-
-  set createdAt(value: BigInt) {
-    this.set("createdAt", Value.fromBigInt(value));
-  }
-
-  get account(): Bytes {
-    let value = this.get("account");
-    return value!.toBytes();
-  }
-
-  set account(value: Bytes) {
-    this.set("account", Value.fromBytes(value));
-  }
-
-  get popSubject(): string {
-    let value = this.get("popSubject");
-    return value!.toString();
-  }
-
-  set popSubject(value: string) {
-    this.set("popSubject", Value.fromString(value));
-  }
-
-  get isBuy(): boolean {
-    let value = this.get("isBuy");
-    return value!.toBoolean();
-  }
-
-  set isBuy(value: boolean) {
-    this.set("isBuy", Value.fromBoolean(value));
-  }
-
-  get ethAmount(): BigInt {
-    let value = this.get("ethAmount");
-    return value!.toBigInt();
-  }
-
-  set ethAmount(value: BigInt) {
-    this.set("ethAmount", Value.fromBigInt(value));
-  }
-
-  get popAmount(): BigInt {
-    let value = this.get("popAmount");
-    return value!.toBigInt();
-  }
-
-  set popAmount(value: BigInt) {
-    this.set("popAmount", Value.fromBigInt(value));
-  }
-
-  get protocolEthAmount(): BigInt {
-    let value = this.get("protocolEthAmount");
-    return value!.toBigInt();
-  }
-
-  set protocolEthAmount(value: BigInt) {
-    this.set("protocolEthAmount", Value.fromBigInt(value));
-  }
-
-  get subjectEthAmount(): BigInt {
-    let value = this.get("subjectEthAmount");
-    return value!.toBigInt();
-  }
-
-  set subjectEthAmount(value: BigInt) {
-    this.set("subjectEthAmount", Value.fromBigInt(value));
-  }
-
-  get supply(): BigInt {
-    let value = this.get("supply");
-    return value!.toBigInt();
-  }
-
-  set supply(value: BigInt) {
-    this.set("supply", Value.fromBigInt(value));
+  set message(value: string | null) {
+    if (!value) {
+      this.unset("message");
+    } else {
+      this.set("message", Value.fromString(<string>value));
+    }
   }
 }

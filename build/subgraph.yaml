@@ -1,33 +1,67 @@
 specVersion: 0.0.4
-description: PopcartSubgraph
-repository: https://github.com/odyssy-automaton/popcart-subgraph
+description: YeeterDhUiV2
+repository: https://github.com/0xBootleggers/yeeter-subgraph
 schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: popcart
+    name: summoner
     network: goerli
     source:
-      address: "0x34a90791b68C90Bbbf30C167cBbCdb8AC0D5B7Ea"
-      abi: popcart
-      startBlock: 9917780
+      address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
+      abi: summoner
+      startBlock: 10038193
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Crop
-        - Balance
-        - Redemption
+        - Dao
       abis:
-        - name: popcart
-          file: popcart/abis/popcart.json
+        - name: summoner
+          file: summoner/abis/summoner.json
       eventHandlers:
-        - event: Create(address,uint256,uint256,uint256)
-          handler: handleCreate
-        - event: Redeem(address,address,uint256)
-          handler: handleRedeem
-        - event: Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)
-          handler: handleTrade
-      file: popcart/popcart.wasm
-templates: []
+        - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
+          handler: handleSummonBaal
+      file: summoner/summoner.wasm
+templates:
+  - kind: ethereum/contract
+    name: BaalTemplate
+    network: goerli
+    source:
+      abi: Baal
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/BaalTemplate/BaalTemplate.wasm
+      entities:
+        - Dao
+      abis:
+        - name: Baal
+          file: BaalTemplate/abis/baal.json
+        - name: YeeterShaman
+          file: BaalTemplate/abis/yeeterShaman.json
+      eventHandlers:
+        - event: ShamanSet(indexed address,uint256)
+          handler: handleShamanSet
+  - kind: ethereum/contract
+    name: YeeterShamanTemplate
+    network: goerli
+    source:
+      abi: YeeterShaman
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/YeeterShamanTemplate/YeeterShamanTemplate.wasm
+      entities:
+        - Dao
+        - Yeeter
+        - Yeets
+      abis:
+        - name: YeeterShaman
+          file: YeeterShamanTemplate/abis/yeeterShaman.json
+      eventHandlers:
+        - event: OnReceived(indexed address,uint256,uint256,address,address,string)
+          handler: handleOnReceived

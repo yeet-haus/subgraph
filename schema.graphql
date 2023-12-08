@@ -1,40 +1,33 @@
-type PopSubject @entity {
+type Dao @entity {
   id: ID!
   createdAt: BigInt!
-  maxSupply: BigInt!
-  redemptionEnd: BigInt!
-  floorPrice: BigInt!
-  supply: BigInt!
-  redeemedTotal: BigInt!
-  balances: [Balance!] @derivedFrom(field: "popSubject")
-  redemptions: [Redemption!] @derivedFrom(field: "popSubject")
-  trades: [Redemption!] @derivedFrom(field: "popSubject")
+  yeeters: [Yeeter!] @derivedFrom(field: "dao")
+  yeets: [Yeet!] @derivedFrom(field: "dao")
 }
 
-type Balance @entity {
+type Yeeter @entity {
   id: ID!
   createdAt: BigInt!
-  popSubject: PopSubject!
-  account: Bytes!
+  dao: Dao!
+  startTime: BigInt
+  endTime: BigInt
+  isShares: Boolean
+  multiplier: BigInt
+  minTribute: BigInt
+  maxTarget: BigInt
   balance: BigInt!
+  vault: Bytes
+  yeetCount: BigInt!
+  yeets: [Yeet!] @derivedFrom(field: "yeeter")
 }
 
-type Redemption @entity {
+type Yeet @entity {
   id: ID!
   createdAt: BigInt!
+  dao: Dao!
+  yeeter: Yeeter!
+  contributor: Bytes!
   amount: BigInt!
-  popSubject: PopSubject!
-}
-
-type Trade @entity {
-  id: ID!
-  createdAt: BigInt!
-  account: Bytes!
-  popSubject: PopSubject!
-  isBuy: Boolean!
-  ethAmount: BigInt!
-  popAmount: BigInt!
-  protocolEthAmount: BigInt!
-  subjectEthAmount: BigInt!
-  supply: BigInt!
+  shares: BigInt!
+  message: String
 }

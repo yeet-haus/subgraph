@@ -1,0 +1,20 @@
+kind: ethereum/contract
+name: BaalTemplate
+network:
+source:
+  abi: Baal
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  file: ./src/baal-mapping.ts
+  entities:
+    - Dao
+  abis:
+    - name: Baal
+      file: ./abis/baal.json
+    - name: YeeterShaman
+      file: ./abis/yeeterShaman.json
+  eventHandlers:
+    - event: "ShamanSet(indexed address,uint256)"
+      handler: handleShamanSet

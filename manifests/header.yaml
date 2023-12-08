@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: PopcartSubgraph
-repository: "https://github.com/odyssy-automaton/popcart-subgraph"
+description: YeeterDhUiV2
+repository: "https://github.com/0xBootleggers/yeeter-subgraph"
 schema:
   file: ./schema.graphql
 dataSources: []

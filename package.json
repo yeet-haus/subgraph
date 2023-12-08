@@ -1,19 +1,19 @@
 {
-  "name": "popcart",
+  "name": "yeeterv2",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create odyssy-automaton/daohaus-boosts --node https://api.thegraph.com/deploy/",
+    "create": "graph create odyssy-automaton/yeeter-dh-ui-v2 --node https://api.thegraph.com/deploy/",
     "codegen": "graph codegen",
     "build": "graph build",
-    "create-local": "graph create odyssy-automaton/daohaus-boosts --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy odyssy-automaton/daohaus-boosts --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "create-local": "graph create odyssy-automaton/yeeter-dh-ui-v2 --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy odyssy-automaton/yeeter-dh-ui-v2 --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
     "build:all": "yarn codegen && yarn build",
     "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
     "prepare:xdai": "node manifests/deploy-prep.js xdai",
     "prepare:goerli": "node manifests/deploy-prep.js goerli",
-    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare",
-    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare",
-    "deploy:goerli": "yarn prepare:goerli && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/cropshare"
+    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2",
+    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2",
+    "deploy:goerli": "yarn prepare:goerli && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "^0.25.0",

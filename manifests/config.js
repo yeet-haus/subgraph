@@ -14,13 +14,22 @@ module.exports.config = {
   goerli: {
     dataSources: [
       {
-        name: "popcart",
-        template: "popcart-ds.yaml",
-        address: "0x34a90791b68C90Bbbf30C167cBbCdb8AC0D5B7Ea",
-        startBlock: 9917780,
+        name: "summoner",
+        template: "summoner-ds.yaml",
+        address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C",
+        startBlock: 10038193,
       },
     ],
-    templates: [],
+    templates: [
+      {
+        name: "baalTemplate",
+        template: "baal-template.yaml",
+      },
+      {
+        name: "yeeterTemplate",
+        template: "yeeterShaman-template.yaml",
+      },
+    ],
   },
   matic: {
     dataSources: [],
