@@ -212,8 +212,8 @@ export class Yeeter extends Entity {
     }
   }
 
-  get maxTarget(): BigInt | null {
-    let value = this.get("maxTarget");
+  get goal(): BigInt | null {
+    let value = this.get("goal");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -221,11 +221,11 @@ export class Yeeter extends Entity {
     }
   }
 
-  set maxTarget(value: BigInt | null) {
+  set goal(value: BigInt | null) {
     if (!value) {
-      this.unset("maxTarget");
+      this.unset("goal");
     } else {
-      this.set("maxTarget", Value.fromBigInt(<BigInt>value));
+      this.set("goal", Value.fromBigInt(<BigInt>value));
     }
   }
 

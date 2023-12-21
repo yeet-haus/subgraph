@@ -6,7 +6,7 @@ import { constants } from "./util/constants";
 import {
   getEndTime,
   getIsShares,
-  getMaxTarget,
+  getGoal,
   getMinTribute,
   getMultiplier,
   getShamanName,
@@ -56,7 +56,7 @@ export function handleShamanSet(event: ShamanSet): void {
   yeeter.isShares = getIsShares(event.params.shaman);
   yeeter.multiplier = getMultiplier(event.params.shaman);
   yeeter.minTribute = getMinTribute(event.params.shaman);
-  yeeter.maxTarget = getMaxTarget(event.params.shaman);
+  yeeter.goal = getGoal(event.params.shaman);
 
   yeeter.save();
 }

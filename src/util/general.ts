@@ -85,12 +85,12 @@ export function getMinTribute(shamanAddress: Address): BigInt | null {
   }
 }
 
-export function getMaxTarget(shamanAddress: Address): BigInt | null {
+export function getGoal(shamanAddress: Address): BigInt | null {
   const contract = YeeterShaman.bind(shamanAddress);
 
-  const target = contract.try_maxTarget();
+  const target = contract.try_goal();
   if (target.reverted) {
-    log.info("shaman maxTarget reverted shaman address, {}", [
+    log.info("shaman goal reverted shaman address, {}", [
       shamanAddress.toHexString(),
     ]);
     return null;

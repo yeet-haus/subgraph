@@ -49,7 +49,7 @@ export class OnReceived__Params {
     return this._event.parameters[1].value.toBigInt();
   }
 
-  get isShares(): BigInt {
+  get shares(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
@@ -173,14 +173,29 @@ export class YeeterShaman extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  goalReached(): boolean {
-    let result = super.call("goalReached", "goalReached():(bool)", []);
+  goal(): BigInt {
+    let result = super.call("goal", "goal():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_goal(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("goal", "goal():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  goalAchieved(): boolean {
+    let result = super.call("goalAchieved", "goalAchieved():(bool)", []);
 
     return result[0].toBoolean();
   }
 
-  try_goalReached(): ethereum.CallResult<boolean> {
-    let result = super.tryCall("goalReached", "goalReached():(bool)", []);
+  try_goalAchieved(): ethereum.CallResult<boolean> {
+    let result = super.tryCall("goalAchieved", "goalAchieved():(bool)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -201,21 +216,6 @@ export class YeeterShaman extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  maxTarget(): BigInt {
-    let result = super.call("maxTarget", "maxTarget():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_maxTarget(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("maxTarget", "maxTarget():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   minTribute(): BigInt {
