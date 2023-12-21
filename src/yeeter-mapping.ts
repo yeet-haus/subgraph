@@ -25,8 +25,8 @@ export function handleOnReceived(event: OnReceived): void {
   yeet.dao = event.params.baal.toHexString();
   yeet.amount = event.params.amount;
   yeet.yeeter = event.address.toHexString();
-  yeet.shares = event.params.isShares;
   yeet.message = event.params.message;
+  yeet.shares = event.params.shares;
 
   yeeter.balance = yeeter.balance.plus(event.params.amount);
   yeeter.yeetCount = yeeter.yeetCount.plus(constants.BIGINT_ONE);

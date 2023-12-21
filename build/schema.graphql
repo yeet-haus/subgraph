@@ -14,7 +14,7 @@ type Yeeter @entity {
   isShares: Boolean
   multiplier: BigInt
   minTribute: BigInt
-  maxTarget: BigInt
+  goal: BigInt
   balance: BigInt!
   vault: Bytes
   yeetCount: BigInt!

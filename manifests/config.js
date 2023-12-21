@@ -17,7 +17,7 @@ module.exports.config = {
         name: "summoner",
         template: "summoner-ds.yaml",
         address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C",
-        startBlock: 10038193,
+        startBlock: 10249301,
       },
     ],
     templates: [
