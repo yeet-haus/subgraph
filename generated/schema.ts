@@ -383,4 +383,13 @@ export class Yeet extends Entity {
       this.set("message", Value.fromString(<string>value));
     }
   }
+
+  get txHash(): Bytes {
+    let value = this.get("txHash");
+    return value!.toBytes();
+  }
+
+  set txHash(value: Bytes) {
+    this.set("txHash", Value.fromBytes(value));
+  }
 }

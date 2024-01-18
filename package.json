@@ -11,9 +11,11 @@
     "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
     "prepare:xdai": "node manifests/deploy-prep.js xdai",
     "prepare:goerli": "node manifests/deploy-prep.js goerli",
+    "prepare:sepolia": "node manifests/deploy-prep.js sepolia",
     "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2",
     "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2",
-    "deploy:goerli": "yarn prepare:goerli && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2"
+    "deploy:goerli": "yarn prepare:goerli && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/yeeter-dh-ui-v2",
+    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-sepolia"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "^0.25.0",

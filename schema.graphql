@@ -30,4 +30,5 @@ type Yeet @entity {
   amount: BigInt!
   shares: BigInt!
   message: String
+  txHash: Bytes!
 }

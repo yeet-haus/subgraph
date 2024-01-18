@@ -1,16 +1,16 @@
 specVersion: 0.0.4
-description: YeeterDhUiV2
+description: YeeterSubgraph
 repository: 'https://github.com/0xBootleggers/yeeter-subgraph'
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: summoner
-    network: goerli
+    network: sepolia
     source:
-      address: '0x7e988A9db2F8597735fc68D21060Daed948a3e8C'
+      address: '0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0'
       abi: summoner
-      startBlock: 10249301
+      startBlock: 5110553
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -29,7 +29,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: goerli
+    network: sepolia
     source:
       abi: Baal
     mapping:
@@ -49,7 +49,7 @@ templates:
           handler: handleShamanSet
   - kind: ethereum/contract
     name: YeeterShamanTemplate
-    network: goerli
+    network: sepolia
     source:
       abi: YeeterShaman
     mapping:

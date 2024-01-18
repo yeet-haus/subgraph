@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: YeeterDhUiV2
+description: YeeterSubgraph
 repository: "https://github.com/0xBootleggers/yeeter-subgraph"
 schema:
   file: ./schema.graphql

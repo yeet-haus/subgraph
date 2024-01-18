@@ -31,6 +31,26 @@ module.exports.config = {
       },
     ],
   },
+  sepolia: {
+    dataSources: [
+      {
+        name: "summoner",
+        template: "summoner-ds.yaml",
+        address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0",
+        startBlock: 5110553,
+      },
+    ],
+    templates: [
+      {
+        name: "baalTemplate",
+        template: "baal-template.yaml",
+      },
+      {
+        name: "yeeterTemplate",
+        template: "yeeterShaman-template.yaml",
+      },
+    ],
+  },
   matic: {
     dataSources: [],
     templates: [],
