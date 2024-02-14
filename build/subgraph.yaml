@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: summoner
-    network: sepolia
+    network: base
     source:
-      address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0"
+      address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F"
       abi: summoner
-      startBlock: 5110553
+      startBlock: 10581133
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -27,7 +27,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: sepolia
+    network: base
     source:
       abi: Baal
     mapping:
@@ -47,7 +47,7 @@ templates:
           handler: handleShamanSet
   - kind: ethereum/contract
     name: YeeterShamanTemplate
-    network: sepolia
+    network: base
     source:
       abi: YeeterShaman
     mapping:

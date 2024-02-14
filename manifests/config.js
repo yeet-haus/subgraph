@@ -4,20 +4,32 @@ module.exports.config = {
     templates: [],
   },
   "arbitrum-one": {
-    dataSources: [],
-    templates: [],
-  },
-  xdai: {
-    dataSources: [],
-    templates: [],
-  },
-  goerli: {
     dataSources: [
       {
         name: "summoner",
         template: "summoner-ds.yaml",
-        address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C",
-        startBlock: 10249301,
+        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        startBlock: 180807980,
+      },
+    ],
+    templates: [
+      {
+        name: "baalTemplate",
+        template: "baal-template.yaml",
+      },
+      {
+        name: "yeeterTemplate",
+        template: "yeeterShaman-template.yaml",
+      },
+    ],
+  },
+  gnosis: {
+    dataSources: [
+      {
+        name: "summoner",
+        template: "summoner-ds.yaml",
+        address: "0x313f9A3C9A5041e9be00cf88b18962581A4eFb35",
+        startBlock: 32454579,
       },
     ],
     templates: [
@@ -51,7 +63,47 @@ module.exports.config = {
       },
     ],
   },
-  matic: {
+  optimism: {
+    dataSources: [
+      {
+        name: "summoner",
+        template: "summoner-ds.yaml",
+        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        startBlock: 116176243,
+      },
+    ],
+    templates: [
+      {
+        name: "baalTemplate",
+        template: "baal-template.yaml",
+      },
+      {
+        name: "yeeterTemplate",
+        template: "yeeterShaman-template.yaml",
+      },
+    ],
+  },
+  base: {
+    dataSources: [
+      {
+        name: "summoner",
+        template: "summoner-ds.yaml",
+        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        startBlock: 10581133,
+      },
+    ],
+    templates: [
+      {
+        name: "baalTemplate",
+        template: "baal-template.yaml",
+      },
+      {
+        name: "yeeterTemplate",
+        template: "yeeterShaman-template.yaml",
+      },
+    ],
+  },
+  polygon: {
     dataSources: [],
     templates: [],
   },

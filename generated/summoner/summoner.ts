@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class AdminChanged extends ethereum.Event {
@@ -279,7 +279,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "deployAndSetupSafe",
       "deployAndSetupSafe(address):(address)",
-      [ethereum.Value.fromAddress(_moduleAddr)]
+      [ethereum.Value.fromAddress(_moduleAddr)],
     );
 
     return result[0].toAddress();
@@ -289,7 +289,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "deployAndSetupSafe",
       "deployAndSetupSafe(address):(address)",
-      [ethereum.Value.fromAddress(_moduleAddr)]
+      [ethereum.Value.fromAddress(_moduleAddr)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -302,23 +302,23 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "deployTokens",
       "deployTokens(string,string):(address,address)",
-      [ethereum.Value.fromString(_name), ethereum.Value.fromString(_symbol)]
+      [ethereum.Value.fromString(_name), ethereum.Value.fromString(_symbol)],
     );
 
     return new summoner__deployTokensResult(
       result[0].toAddress(),
-      result[1].toAddress()
+      result[1].toAddress(),
     );
   }
 
   try_deployTokens(
     _name: string,
-    _symbol: string
+    _symbol: string,
   ): ethereum.CallResult<summoner__deployTokensResult> {
     let result = super.tryCall(
       "deployTokens",
       "deployTokens(string,string):(address,address)",
-      [ethereum.Value.fromString(_name), ethereum.Value.fromString(_symbol)]
+      [ethereum.Value.fromString(_name), ethereum.Value.fromString(_symbol)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -327,8 +327,8 @@ export class summoner extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(
       new summoner__deployTokensResult(
         value[0].toAddress(),
-        value[1].toAddress()
-      )
+        value[1].toAddress(),
+      ),
     );
   }
 
@@ -338,8 +338,8 @@ export class summoner extends ethereum.SmartContract {
       "encodeMultisend(bytes[],address):(bytes)",
       [
         ethereum.Value.fromBytesArray(_calls),
-        ethereum.Value.fromAddress(_target)
-      ]
+        ethereum.Value.fromAddress(_target),
+      ],
     );
 
     return result[0].toBytes();
@@ -347,15 +347,15 @@ export class summoner extends ethereum.SmartContract {
 
   try_encodeMultisend(
     _calls: Array<Bytes>,
-    _target: Address
+    _target: Address,
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "encodeMultisend",
       "encodeMultisend(bytes[],address):(bytes)",
       [
         ethereum.Value.fromBytesArray(_calls),
-        ethereum.Value.fromAddress(_target)
-      ]
+        ethereum.Value.fromAddress(_target),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -368,7 +368,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "gnosisFallbackLibrary",
       "gnosisFallbackLibrary():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -378,7 +378,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "gnosisFallbackLibrary",
       "gnosisFallbackLibrary():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -391,7 +391,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "gnosisMultisendLibrary",
       "gnosisMultisendLibrary():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -401,7 +401,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "gnosisMultisendLibrary",
       "gnosisMultisendLibrary():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -414,7 +414,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "gnosisSingleton",
       "gnosisSingleton():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -424,7 +424,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "gnosisSingleton",
       "gnosisSingleton():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -443,7 +443,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "lootSingleton",
       "lootSingleton():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -477,7 +477,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "proxiableUUID",
       "proxiableUUID():(bytes32)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -490,7 +490,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.call(
       "sharesSingleton",
       "sharesSingleton():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -500,7 +500,7 @@ export class summoner extends ethereum.SmartContract {
     let result = super.tryCall(
       "sharesSingleton",
       "sharesSingleton():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -512,7 +512,7 @@ export class summoner extends ethereum.SmartContract {
   summonBaal(
     initializationParams: Bytes,
     initializationActions: Array<Bytes>,
-    _saltNonce: BigInt
+    _saltNonce: BigInt,
   ): Address {
     let result = super.call(
       "summonBaal",
@@ -520,8 +520,8 @@ export class summoner extends ethereum.SmartContract {
       [
         ethereum.Value.fromBytes(initializationParams),
         ethereum.Value.fromBytesArray(initializationActions),
-        ethereum.Value.fromUnsignedBigInt(_saltNonce)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_saltNonce),
+      ],
     );
 
     return result[0].toAddress();
@@ -530,7 +530,7 @@ export class summoner extends ethereum.SmartContract {
   try_summonBaal(
     initializationParams: Bytes,
     initializationActions: Array<Bytes>,
-    _saltNonce: BigInt
+    _saltNonce: BigInt,
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "summonBaal",
@@ -538,8 +538,8 @@ export class summoner extends ethereum.SmartContract {
       [
         ethereum.Value.fromBytes(initializationParams),
         ethereum.Value.fromBytesArray(initializationActions),
-        ethereum.Value.fromUnsignedBigInt(_saltNonce)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_saltNonce),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();

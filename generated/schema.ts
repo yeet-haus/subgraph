@@ -8,7 +8,7 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
 } from "@graphprotocol/graph-ts";
 
 export class Dao extends Entity {
@@ -23,10 +23,14 @@ export class Dao extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Dao must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Dao must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Dao", id.toString(), this);
     }
+  }
+
+  static loadInBlock(id: string): Dao | null {
+    return changetype<Dao | null>(store.get_in_block("Dao", id));
   }
 
   static load(id: string): Dao | null {
@@ -35,7 +39,11 @@ export class Dao extends Entity {
 
   get id(): string {
     let value = this.get("id");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set id(value: string) {
@@ -44,45 +52,23 @@ export class Dao extends Entity {
 
   get createdAt(): BigInt {
     let value = this.get("createdAt");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set createdAt(value: BigInt) {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
-  get yeeters(): Array<string> | null {
-    let value = this.get("yeeters");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
+  get yeeters(): YeeterLoader {
+    return new YeeterLoader("Dao", this.get("id")!.toString(), "yeeters");
   }
 
-  set yeeters(value: Array<string> | null) {
-    if (!value) {
-      this.unset("yeeters");
-    } else {
-      this.set("yeeters", Value.fromStringArray(<Array<string>>value));
-    }
-  }
-
-  get yeets(): Array<string> | null {
-    let value = this.get("yeets");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set yeets(value: Array<string> | null) {
-    if (!value) {
-      this.unset("yeets");
-    } else {
-      this.set("yeets", Value.fromStringArray(<Array<string>>value));
-    }
+  get yeets(): YeetLoader {
+    return new YeetLoader("Dao", this.get("id")!.toString(), "yeets");
   }
 }
 
@@ -98,10 +84,14 @@ export class Yeeter extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Yeeter must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Yeeter must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Yeeter", id.toString(), this);
     }
+  }
+
+  static loadInBlock(id: string): Yeeter | null {
+    return changetype<Yeeter | null>(store.get_in_block("Yeeter", id));
   }
 
   static load(id: string): Yeeter | null {
@@ -110,7 +100,11 @@ export class Yeeter extends Entity {
 
   get id(): string {
     let value = this.get("id");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set id(value: string) {
@@ -119,7 +113,11 @@ export class Yeeter extends Entity {
 
   get createdAt(): BigInt {
     let value = this.get("createdAt");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set createdAt(value: BigInt) {
@@ -128,7 +126,11 @@ export class Yeeter extends Entity {
 
   get dao(): string {
     let value = this.get("dao");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set dao(value: string) {
@@ -171,7 +173,11 @@ export class Yeeter extends Entity {
 
   get isShares(): boolean {
     let value = this.get("isShares");
-    return value!.toBoolean();
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
   }
 
   set isShares(value: boolean) {
@@ -231,7 +237,11 @@ export class Yeeter extends Entity {
 
   get balance(): BigInt {
     let value = this.get("balance");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set balance(value: BigInt) {
@@ -257,28 +267,19 @@ export class Yeeter extends Entity {
 
   get yeetCount(): BigInt {
     let value = this.get("yeetCount");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set yeetCount(value: BigInt) {
     this.set("yeetCount", Value.fromBigInt(value));
   }
 
-  get yeets(): Array<string> | null {
-    let value = this.get("yeets");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set yeets(value: Array<string> | null) {
-    if (!value) {
-      this.unset("yeets");
-    } else {
-      this.set("yeets", Value.fromStringArray(<Array<string>>value));
-    }
+  get yeets(): YeetLoader {
+    return new YeetLoader("Yeeter", this.get("id")!.toString(), "yeets");
   }
 }
 
@@ -294,10 +295,14 @@ export class Yeet extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Yeet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Yeet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Yeet", id.toString(), this);
     }
+  }
+
+  static loadInBlock(id: string): Yeet | null {
+    return changetype<Yeet | null>(store.get_in_block("Yeet", id));
   }
 
   static load(id: string): Yeet | null {
@@ -306,7 +311,11 @@ export class Yeet extends Entity {
 
   get id(): string {
     let value = this.get("id");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set id(value: string) {
@@ -315,7 +324,11 @@ export class Yeet extends Entity {
 
   get createdAt(): BigInt {
     let value = this.get("createdAt");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set createdAt(value: BigInt) {
@@ -324,7 +337,11 @@ export class Yeet extends Entity {
 
   get dao(): string {
     let value = this.get("dao");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set dao(value: string) {
@@ -333,7 +350,11 @@ export class Yeet extends Entity {
 
   get yeeter(): string {
     let value = this.get("yeeter");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
   }
 
   set yeeter(value: string) {
@@ -342,7 +363,11 @@ export class Yeet extends Entity {
 
   get contributor(): Bytes {
     let value = this.get("contributor");
-    return value!.toBytes();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
   }
 
   set contributor(value: Bytes) {
@@ -351,7 +376,11 @@ export class Yeet extends Entity {
 
   get amount(): BigInt {
     let value = this.get("amount");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set amount(value: BigInt) {
@@ -360,7 +389,11 @@ export class Yeet extends Entity {
 
   get shares(): BigInt {
     let value = this.get("shares");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
   }
 
   set shares(value: BigInt) {
@@ -386,10 +419,50 @@ export class Yeet extends Entity {
 
   get txHash(): Bytes {
     let value = this.get("txHash");
-    return value!.toBytes();
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
   }
 
   set txHash(value: Bytes) {
     this.set("txHash", Value.fromBytes(value));
+  }
+}
+
+export class YeeterLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): Yeeter[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<Yeeter[]>(value);
+  }
+}
+
+export class YeetLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): Yeet[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<Yeet[]>(value);
   }
 }
