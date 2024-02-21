@@ -3,7 +3,7 @@
 import {
   Address,
   DataSourceTemplate,
-  DataSourceContext,
+  DataSourceContext
 } from "@graphprotocol/graph-ts";
 
 export class BaalTemplate extends DataSourceTemplate {
@@ -15,7 +15,7 @@ export class BaalTemplate extends DataSourceTemplate {
     DataSourceTemplate.createWithContext(
       "BaalTemplate",
       [address.toHex()],
-      context,
+      context
     );
   }
 }
@@ -29,7 +29,7 @@ export class YeeterShamanTemplate extends DataSourceTemplate {
     DataSourceTemplate.createWithContext(
       "YeeterShamanTemplate",
       [address.toHex()],
-      context,
+      context
     );
   }
 }

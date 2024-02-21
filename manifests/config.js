@@ -8,7 +8,7 @@ module.exports.config = {
       {
         name: "summoner",
         template: "summoner-ds.yaml",
-        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        address: "0xb08Cc8C343cF6dC20d8cf51Fb2D6C436c6390dAa",
         startBlock: 180807980,
       },
     ],
@@ -28,7 +28,7 @@ module.exports.config = {
       {
         name: "summoner",
         template: "summoner-ds.yaml",
-        address: "0x313f9A3C9A5041e9be00cf88b18962581A4eFb35",
+        address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C",
         startBlock: 32454579,
       },
     ],
@@ -68,7 +68,7 @@ module.exports.config = {
       {
         name: "summoner",
         template: "summoner-ds.yaml",
-        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        address: "0x3E0eAdE343Ddc556a6Cf0f858e4f685ba303ce71",
         startBlock: 116176243,
       },
     ],
@@ -88,7 +88,7 @@ module.exports.config = {
       {
         name: "summoner",
         template: "summoner-ds.yaml",
-        address: "0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F",
+        address: "0x22e0382194AC1e9929E023bBC2fD2BA6b778E098",
         startBlock: 10581133,
       },
     ],
