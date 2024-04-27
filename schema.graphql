@@ -18,6 +18,11 @@ type Yeeter @entity {
   balance: BigInt!
   vault: Bytes
   yeetCount: BigInt!
+  yeeterType: String!
+  tokenAddress: Bytes
+  tokenDecimals: BigInt
+  tokenName: String
+  tokenSymbol: String
   yeets: [Yeet!] @derivedFrom(field: "yeeter")
 }
 

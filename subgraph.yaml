@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: summoner
-    network: base
+    network: sepolia
     source:
-      address: '0x2875aEbb4472E5E579a2A5290c7B5A3C90484D5F'
+      address: '0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0'
       abi: summoner
-      startBlock: 10581133
+      startBlock: 5110553
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -29,7 +29,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: base
+    network: sepolia
     source:
       abi: Baal
     mapping:
@@ -49,7 +49,7 @@ templates:
           handler: handleShamanSet
   - kind: ethereum/contract
     name: YeeterShamanTemplate
-    network: base
+    network: sepolia
     source:
       abi: YeeterShaman
     mapping:
@@ -67,3 +67,29 @@ templates:
       eventHandlers:
         - event: 'OnReceived(indexed address,uint256,uint256,address,address,string)'
           handler: handleOnReceived
+  - kind: ethereum/contract
+    name: Erc20YeeterShamanTemplate
+    network: sepolia
+    source:
+      abi: Erc20YeeterShaman
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/yeeter-mapping.ts
+      entities:
+        - Dao
+        - Yeeter
+        - Yeets
+      abis:
+        - name: Erc20YeeterShaman
+          file: ./abis/erc20YeeterShaman.json
+        - name: Erc20
+          file: ./abis/erc20.json
+        - name: Erc20Bytes32
+          file: ./abis/erc20Bytes32.json
+      eventHandlers:
+        - event: >-
+            OnReceivedERC20(indexed
+            address,uint256,uint256,address,address,string,address)
+          handler: handleOnReceivedERC20

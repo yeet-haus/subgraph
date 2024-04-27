@@ -2,7 +2,7 @@ import { log } from "@graphprotocol/graph-ts";
 import { BaalTemplate, YeeterShamanTemplate } from "../generated/templates";
 import { Dao, Yeeter } from "../generated/schema";
 import { ShamanSet } from "../generated/templates/BaalTemplate/Baal";
-import { constants } from "./util/constants";
+import { SHAMAN_TYPES, VALID_SHAMANS, constants } from "./util/constants";
 import {
   getEndTime,
   getIsShares,
@@ -11,6 +11,10 @@ import {
   getMultiplier,
   getShamanName,
   getStartTime,
+  getToken,
+  getErc20Decimals,
+  getErc20Symbol,
+  getErc20Name,
 } from "./util/general";
 
 // ShamanSet (index_topic_1 address shaman, uint256 permission)
@@ -31,7 +35,9 @@ export function handleShamanSet(event: ShamanSet): void {
 
     return;
   }
-  if (shamanName != constants.YEETER_SHAMAN_NAME) {
+
+  const validShaman = VALID_SHAMANS.includes(shamanName);
+  if (!validShaman) {
     log.info("no shaman match shamanName, {}", [
       event.params.shaman.toHexString(),
     ]);
@@ -41,6 +47,8 @@ export function handleShamanSet(event: ShamanSet): void {
 
   const yeeterId = event.params.shaman.toHexString();
 
+  const yeeterType = SHAMAN_TYPES[shamanName];
+
   let yeeter = Yeeter.load(yeeterId);
   if (yeeter === null) {
     yeeter = new Yeeter(yeeterId);
@@ -48,6 +56,7 @@ export function handleShamanSet(event: ShamanSet): void {
     yeeter.dao = event.address.toHexString();
     yeeter.balance = constants.BIGINT_ZERO;
     yeeter.yeetCount = constants.BIGINT_ZERO;
+    yeeter.yeeterType = yeeterType;
     YeeterShamanTemplate.create(event.params.shaman);
   }
 
@@ -57,6 +66,16 @@ export function handleShamanSet(event: ShamanSet): void {
   yeeter.multiplier = getMultiplier(event.params.shaman);
   yeeter.minTribute = getMinTribute(event.params.shaman);
   yeeter.goal = getGoal(event.params.shaman);
+
+  if (yeeterType == "erc20Yeeter") {
+    const tokenAddress = getToken(event.params.shaman);
+    if (tokenAddress) {
+      yeeter.tokenAddress = tokenAddress;
+      yeeter.tokenDecimals = getErc20Decimals(tokenAddress);
+      yeeter.tokenSymbol = getErc20Symbol(tokenAddress);
+      yeeter.tokenName = getErc20Name(tokenAddress);
+    }
+  }
 
   yeeter.save();
 }

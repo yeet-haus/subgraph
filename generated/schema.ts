@@ -278,6 +278,87 @@ export class Yeeter extends Entity {
     this.set("yeetCount", Value.fromBigInt(value));
   }
 
+  get yeeterType(): string {
+    let value = this.get("yeeterType");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set yeeterType(value: string) {
+    this.set("yeeterType", Value.fromString(value));
+  }
+
+  get tokenAddress(): Bytes | null {
+    let value = this.get("tokenAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenAddress(value: Bytes | null) {
+    if (!value) {
+      this.unset("tokenAddress");
+    } else {
+      this.set("tokenAddress", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get tokenDecimals(): BigInt | null {
+    let value = this.get("tokenDecimals");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenDecimals(value: BigInt | null) {
+    if (!value) {
+      this.unset("tokenDecimals");
+    } else {
+      this.set("tokenDecimals", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get tokenName(): string | null {
+    let value = this.get("tokenName");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tokenName(value: string | null) {
+    if (!value) {
+      this.unset("tokenName");
+    } else {
+      this.set("tokenName", Value.fromString(<string>value));
+    }
+  }
+
+  get tokenSymbol(): string | null {
+    let value = this.get("tokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("tokenSymbol");
+    } else {
+      this.set("tokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
   get yeets(): YeetLoader {
     return new YeetLoader("Yeeter", this.get("id")!.toString(), "yeets");
   }
