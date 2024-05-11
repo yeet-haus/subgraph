@@ -21,7 +21,7 @@ export const VALID_SHAMANS = [
   constants.ERC20_YEETER_SHAMAN_NAME,
 ];
 
-export const SHAMAN_TYPES = {
-  [constants.YEETER_SHAMAN_NAME]: "ethYeeter",
-  [constants.ERC20_YEETER_SHAMAN_NAME]: "erc20Yeeter",
-};
+// export const SHAMAN_TYPES = {
+//   [constants.YEETER_SHAMAN_NAME]: "ethYeeter",
+//   [constants.ERC20_YEETER_SHAMAN_NAME]: "erc20Yeeter",
+// };

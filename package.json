@@ -13,14 +13,14 @@
     "prepare:base": "node manifests/deploy-prep.js base",
     "prepare:arbitrum-one": "node manifests/deploy-prep.js arbitrum-one",
     "prepare:optimism": "node manifests/deploy-prep.js optimism",
-    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-sepolia",
-    "deploy:gnosis": "yarn prepare:gnosis && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-gnosis",
-    "deploy:optimism": "yarn prepare:optimism && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-optimism",
-    "deploy:arbitrum-one": "yarn prepare:arbitrum-one && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-arbitrum",
+    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --studio yeeter-sepolia",
+    "deploy:gnosis": "yarn prepare:gnosis && yarn build:all && graph deploy --studio yeeter-gnosis",
+    "deploy:optimism": "yarn prepare:optimism && yarn build:all && graph deploy --studio yeeter-optimism",
+    "deploy:arbitrum-one": "yarn prepare:arbitrum-one && yarn build:all && graph deploy --studio yeeter-arbitrum",
     "deploy:base": "yarn prepare:base && yarn build:all && graph deploy --studio yeeter-base-v1"
   },
   "dependencies": {
-    "@graphprotocol/graph-ts": "^0.25.0",
+    "@graphprotocol/graph-ts": "^0.35.1",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "js-yaml": "^3.13.1"

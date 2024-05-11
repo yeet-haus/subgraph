@@ -1,6 +1,7 @@
 type Dao @entity {
   id: ID!
   createdAt: BigInt!
+  referrer: String
   yeeters: [Yeeter!] @derivedFrom(field: "dao")
   yeets: [Yeet!] @derivedFrom(field: "dao")
 }
@@ -18,7 +19,7 @@ type Yeeter @entity {
   balance: BigInt!
   vault: Bytes
   yeetCount: BigInt!
-  yeeterType: String!
+  yeeterType: String
   tokenAddress: Bytes
   tokenDecimals: BigInt
   tokenName: String

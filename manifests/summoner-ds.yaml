@@ -17,4 +17,6 @@ mapping:
   eventHandlers:
     - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
       handler: handleSummonBaal
+    - event: DaoReferral(bytes32,address)
+      handler: handleDaoReferral
   file: ./src/summoner-mapping.ts

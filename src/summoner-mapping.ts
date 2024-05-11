@@ -1,4 +1,4 @@
-import { SummonBaal } from "../generated/summoner/summoner";
+import { DaoReferral, SummonBaal } from "../generated/summoner/summoner";
 import { BaalTemplate } from "../generated/templates";
 import { Dao } from "../generated/schema";
 
@@ -12,6 +12,19 @@ export function handleSummonBaal(event: SummonBaal): void {
   }
 
   dao.createdAt = event.block.timestamp;
+
+  dao.save();
+}
+
+export function handleDaoReferral(event: DaoReferral): void {
+  const daoId = event.params.daoAddress.toHexString();
+
+  let dao = Dao.load(daoId);
+  if (dao === null) {
+    dao = new Dao(daoId);
+  }
+
+  dao.referrer = event.params.referrer.toString();
 
   dao.save();
 }

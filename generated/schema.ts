@@ -63,6 +63,23 @@ export class Dao extends Entity {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
+  get referrer(): string | null {
+    let value = this.get("referrer");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set referrer(value: string | null) {
+    if (!value) {
+      this.unset("referrer");
+    } else {
+      this.set("referrer", Value.fromString(<string>value));
+    }
+  }
+
   get yeeters(): YeeterLoader {
     return new YeeterLoader("Dao", this.get("id")!.toString(), "yeeters");
   }
@@ -278,17 +295,21 @@ export class Yeeter extends Entity {
     this.set("yeetCount", Value.fromBigInt(value));
   }
 
-  get yeeterType(): string {
+  get yeeterType(): string | null {
     let value = this.get("yeeterType");
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+      return null;
     } else {
       return value.toString();
     }
   }
 
-  set yeeterType(value: string) {
-    this.set("yeeterType", Value.fromString(value));
+  set yeeterType(value: string | null) {
+    if (!value) {
+      this.unset("yeeterType");
+    } else {
+      this.set("yeeterType", Value.fromString(<string>value));
+    }
   }
 
   get tokenAddress(): Bytes | null {

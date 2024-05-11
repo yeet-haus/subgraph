@@ -2,7 +2,7 @@ import { log } from "@graphprotocol/graph-ts";
 import { BaalTemplate, YeeterShamanTemplate } from "../generated/templates";
 import { Dao, Yeeter } from "../generated/schema";
 import { ShamanSet } from "../generated/templates/BaalTemplate/Baal";
-import { SHAMAN_TYPES, VALID_SHAMANS, constants } from "./util/constants";
+import { VALID_SHAMANS, constants } from "./util/constants";
 import {
   getEndTime,
   getIsShares,
@@ -30,13 +30,13 @@ export function handleShamanSet(event: ShamanSet): void {
 
   const shamanName = getShamanName(event.params.shaman);
 
-  if (!shamanName) {
+  if (shamanName == null) {
     log.info("no shaman, {}", [event.params.shaman.toHexString()]);
 
     return;
   }
 
-  const validShaman = VALID_SHAMANS.includes(shamanName);
+  const validShaman = shamanName !== null && VALID_SHAMANS.includes(shamanName);
   if (!validShaman) {
     log.info("no shaman match shamanName, {}", [
       event.params.shaman.toHexString(),
@@ -47,7 +47,7 @@ export function handleShamanSet(event: ShamanSet): void {
 
   const yeeterId = event.params.shaman.toHexString();
 
-  const yeeterType = SHAMAN_TYPES[shamanName];
+  const yeeterType = shamanName;
 
   let yeeter = Yeeter.load(yeeterId);
   if (yeeter === null) {
