@@ -15,6 +15,7 @@ import {
   getErc20Decimals,
   getErc20Symbol,
   getErc20Name,
+  getVault,
 } from "./util/general";
 
 // ShamanSet (index_topic_1 address shaman, uint256 permission)
@@ -23,9 +24,11 @@ export function handleShamanSet(event: ShamanSet): void {
 
   let dao = Dao.load(event.address.toHexString());
   if (dao === null) {
-    dao = new Dao(event.address.toHexString());
-    dao.createdAt = event.block.timestamp;
-    BaalTemplate.create(event.address);
+    // does this ever happen? probably should return here
+    // dao = new Dao(event.address.toHexString());
+    // dao.createdAt = event.block.timestamp;
+    // BaalTemplate.create(event.address);
+    return;
   }
 
   const shamanName = getShamanName(event.params.shaman);
@@ -66,6 +69,7 @@ export function handleShamanSet(event: ShamanSet): void {
   yeeter.multiplier = getMultiplier(event.params.shaman);
   yeeter.minTribute = getMinTribute(event.params.shaman);
   yeeter.goal = getGoal(event.params.shaman);
+  yeeter.vault = getVault(event.params.shaman);
 
   if (yeeterType == "erc20Yeeter") {
     const tokenAddress = getToken(event.params.shaman);

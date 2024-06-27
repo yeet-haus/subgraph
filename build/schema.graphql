@@ -2,6 +2,10 @@ type Dao @entity {
   id: ID!
   createdAt: BigInt!
   referrer: String
+  lootAddress: Bytes!
+  sharesAddress: Bytes!
+  shareTokenSymbol: String
+  lootTokenSymbol: String
   yeeters: [Yeeter!] @derivedFrom(field: "dao")
   yeets: [Yeet!] @derivedFrom(field: "dao")
 }

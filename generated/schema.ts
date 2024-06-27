@@ -80,6 +80,66 @@ export class Dao extends Entity {
     }
   }
 
+  get lootAddress(): Bytes {
+    let value = this.get("lootAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set lootAddress(value: Bytes) {
+    this.set("lootAddress", Value.fromBytes(value));
+  }
+
+  get sharesAddress(): Bytes {
+    let value = this.get("sharesAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set sharesAddress(value: Bytes) {
+    this.set("sharesAddress", Value.fromBytes(value));
+  }
+
+  get shareTokenSymbol(): string | null {
+    let value = this.get("shareTokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set shareTokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("shareTokenSymbol");
+    } else {
+      this.set("shareTokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
+  get lootTokenSymbol(): string | null {
+    let value = this.get("lootTokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lootTokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("lootTokenSymbol");
+    } else {
+      this.set("lootTokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
   get yeeters(): YeeterLoader {
     return new YeeterLoader("Dao", this.get("id")!.toString(), "yeeters");
   }

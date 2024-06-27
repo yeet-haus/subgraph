@@ -20,6 +20,8 @@ dataSources:
       abis:
         - name: summoner
           file: ./abis/summoner.json
+        - name: Erc20
+          file: ./abis/erc20.json
       eventHandlers:
         - event: >-
             SummonBaal(indexed address,indexed address,indexed
@@ -46,6 +48,8 @@ templates:
           file: ./abis/baal.json
         - name: YeeterShaman
           file: ./abis/yeeterShaman.json
+        - name: Erc20
+          file: ./abis/erc20.json
       eventHandlers:
         - event: 'ShamanSet(indexed address,uint256)'
           handler: handleShamanSet
