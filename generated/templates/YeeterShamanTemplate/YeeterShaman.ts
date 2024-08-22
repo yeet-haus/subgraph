@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class Initialized extends ethereum.Event {
@@ -133,7 +133,7 @@ export class YeeterShaman extends ethereum.SmartContract {
 
   feeAmounts(param0: BigInt): BigInt {
     let result = super.call("feeAmounts", "feeAmounts(uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(param0)
+      ethereum.Value.fromUnsignedBigInt(param0),
     ]);
 
     return result[0].toBigInt();
@@ -141,7 +141,7 @@ export class YeeterShaman extends ethereum.SmartContract {
 
   try_feeAmounts(param0: BigInt): ethereum.CallResult<BigInt> {
     let result = super.tryCall("feeAmounts", "feeAmounts(uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(param0)
+      ethereum.Value.fromUnsignedBigInt(param0),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -154,7 +154,7 @@ export class YeeterShaman extends ethereum.SmartContract {
     let result = super.call(
       "feeRecipients",
       "feeRecipients(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
     return result[0].toAddress();
@@ -164,7 +164,7 @@ export class YeeterShaman extends ethereum.SmartContract {
     let result = super.tryCall(
       "feeRecipients",
       "feeRecipients(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();

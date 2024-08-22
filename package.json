@@ -9,18 +9,20 @@
     "deploy-local": "graph deploy odyssy-automaton/yeeter-dh-ui-v2 --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
     "build:all": "yarn codegen && yarn build",
     "prepare:sepolia": "node manifests/deploy-prep.js sepolia",
+    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --studio yeeter-sepolia",
     "prepare:gnosis": "node manifests/deploy-prep.js gnosis",
+    "deploy:gnosis": "yarn prepare:gnosis && yarn build:all && graph deploy --studio yeeter-gnosis",
     "prepare:base": "node manifests/deploy-prep.js base",
+    "deploy:base": "yarn prepare:base && yarn build:all && graph deploy --studio yeeter-base-v1",
     "prepare:arbitrum-one": "node manifests/deploy-prep.js arbitrum-one",
+    "deploy:arbitrum-one": "yarn prepare:arbitrum-one && yarn build:all && graph deploy --studio yeeter-arbitrum",
     "prepare:optimism": "node manifests/deploy-prep.js optimism",
-    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-sepolia",
-    "deploy:gnosis": "yarn prepare:gnosis && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-gnosis",
-    "deploy:optimism": "yarn prepare:optimism && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-optimism",
-    "deploy:arbitrum-one": "yarn prepare:arbitrum-one && yarn build:all && graph deploy --product hosted-service yeet-haus/yeeter-arbitrum",
-    "deploy:base": "yarn prepare:base && yarn build:all && graph deploy --studio yeeter-base-v1"
+    "deploy:optimism": "yarn prepare:optimism && yarn build:all && graph deploy --studio yeeter-optimism",
+    "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
+    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --studio yeeter-mainnet"
   },
   "dependencies": {
-    "@graphprotocol/graph-ts": "^0.25.0",
+    "@graphprotocol/graph-ts": "^0.35.1",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "js-yaml": "^3.13.1"

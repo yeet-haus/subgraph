@@ -25,4 +25,5 @@ https://api.thegraph.com/subgraphs/name/yeet-haus/yeeter-optimism
 **Base**
 
 https://thegraph.com/studio/subgraph/yeeter-base-v1/
-https://api.studio.thegraph.com/query/3450/yeeter-base-v1/version/latest
+
+https://thegraph.com/explorer/subgraphs/6vyAqRpCyrhLsfd6TfYAssvKywKhxJykkDbPxJZ4ZcEr?view=Playground&chain=arbitrum-one

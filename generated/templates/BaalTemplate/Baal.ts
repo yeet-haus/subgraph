@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class Approval extends ethereum.Event {
@@ -580,7 +580,7 @@ export class Baal__proposalsResult {
     value9: BigInt,
     value10: BigInt,
     value11: Address,
-    value12: Bytes
+    value12: Bytes,
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -709,8 +709,8 @@ export class Baal extends ethereum.SmartContract {
       "encodeMultisend(bytes[],address):(bytes)",
       [
         ethereum.Value.fromBytesArray(_calls),
-        ethereum.Value.fromAddress(_target)
-      ]
+        ethereum.Value.fromAddress(_target),
+      ],
     );
 
     return result[0].toBytes();
@@ -718,15 +718,15 @@ export class Baal extends ethereum.SmartContract {
 
   try_encodeMultisend(
     _calls: Array<Bytes>,
-    _target: Address
+    _target: Address,
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "encodeMultisend",
       "encodeMultisend(bytes[],address):(bytes)",
       [
         ethereum.Value.fromBytesArray(_calls),
-        ethereum.Value.fromAddress(_target)
-      ]
+        ethereum.Value.fromAddress(_target),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -754,7 +754,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "getProposalStatus",
       "getProposalStatus(uint32):(bool[4])",
-      [ethereum.Value.fromUnsignedBigInt(id)]
+      [ethereum.Value.fromUnsignedBigInt(id)],
     );
 
     return result[0].toBooleanArray();
@@ -764,7 +764,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "getProposalStatus",
       "getProposalStatus(uint32):(bool[4])",
-      [ethereum.Value.fromUnsignedBigInt(id)]
+      [ethereum.Value.fromUnsignedBigInt(id)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -820,7 +820,7 @@ export class Baal extends ethereum.SmartContract {
 
   hashOperation(_transactions: Bytes): Bytes {
     let result = super.call("hashOperation", "hashOperation(bytes):(bytes32)", [
-      ethereum.Value.fromBytes(_transactions)
+      ethereum.Value.fromBytes(_transactions),
     ]);
 
     return result[0].toBytes();
@@ -830,7 +830,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "hashOperation",
       "hashOperation(bytes):(bytes32)",
-      [ethereum.Value.fromBytes(_transactions)]
+      [ethereum.Value.fromBytes(_transactions)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -841,7 +841,7 @@ export class Baal extends ethereum.SmartContract {
 
   isAdmin(shaman: Address): boolean {
     let result = super.call("isAdmin", "isAdmin(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
 
     return result[0].toBoolean();
@@ -849,7 +849,7 @@ export class Baal extends ethereum.SmartContract {
 
   try_isAdmin(shaman: Address): ethereum.CallResult<boolean> {
     let result = super.tryCall("isAdmin", "isAdmin(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -860,7 +860,7 @@ export class Baal extends ethereum.SmartContract {
 
   isGovernor(shaman: Address): boolean {
     let result = super.call("isGovernor", "isGovernor(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
 
     return result[0].toBoolean();
@@ -868,7 +868,7 @@ export class Baal extends ethereum.SmartContract {
 
   try_isGovernor(shaman: Address): ethereum.CallResult<boolean> {
     let result = super.tryCall("isGovernor", "isGovernor(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -879,7 +879,7 @@ export class Baal extends ethereum.SmartContract {
 
   isManager(shaman: Address): boolean {
     let result = super.call("isManager", "isManager(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
 
     return result[0].toBoolean();
@@ -887,7 +887,7 @@ export class Baal extends ethereum.SmartContract {
 
   try_isManager(shaman: Address): ethereum.CallResult<boolean> {
     let result = super.tryCall("isManager", "isManager(address):(bool)", [
-      ethereum.Value.fromAddress(shaman)
+      ethereum.Value.fromAddress(shaman),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -900,7 +900,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "isTrustedForwarder",
       "isTrustedForwarder(address):(bool)",
-      [ethereum.Value.fromAddress(forwarder)]
+      [ethereum.Value.fromAddress(forwarder)],
     );
 
     return result[0].toBoolean();
@@ -910,7 +910,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "isTrustedForwarder",
       "isTrustedForwarder(address):(bool)",
-      [ethereum.Value.fromAddress(forwarder)]
+      [ethereum.Value.fromAddress(forwarder)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -923,7 +923,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "latestSponsoredProposalId",
       "latestSponsoredProposalId():(uint32)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -933,7 +933,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "latestSponsoredProposalId",
       "latestSponsoredProposalId():(uint32)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -978,8 +978,8 @@ export class Baal extends ethereum.SmartContract {
       "memberVoted(address,uint32):(bool)",
       [
         ethereum.Value.fromAddress(param0),
-        ethereum.Value.fromUnsignedBigInt(param1)
-      ]
+        ethereum.Value.fromUnsignedBigInt(param1),
+      ],
     );
 
     return result[0].toBoolean();
@@ -987,15 +987,15 @@ export class Baal extends ethereum.SmartContract {
 
   try_memberVoted(
     param0: Address,
-    param1: BigInt
+    param1: BigInt,
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "memberVoted",
       "memberVoted(address,uint32):(bool)",
       [
         ethereum.Value.fromAddress(param0),
-        ethereum.Value.fromUnsignedBigInt(param1)
-      ]
+        ethereum.Value.fromUnsignedBigInt(param1),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1008,7 +1008,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "minRetentionPercent",
       "minRetentionPercent():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -1018,7 +1018,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "minRetentionPercent",
       "minRetentionPercent():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1031,7 +1031,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "multisendLibrary",
       "multisendLibrary():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -1041,7 +1041,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "multisendLibrary",
       "multisendLibrary():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1084,7 +1084,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "proposalOffering",
       "proposalOffering():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -1094,7 +1094,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposalOffering",
       "proposalOffering():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1107,7 +1107,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "proposals",
       "proposals(uint256):(uint32,uint32,uint32,uint32,uint32,uint32,uint256,uint256,uint256,uint256,uint256,address,bytes32)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
     return new Baal__proposalsResult(
@@ -1123,7 +1123,7 @@ export class Baal extends ethereum.SmartContract {
       result[9].toBigInt(),
       result[10].toBigInt(),
       result[11].toAddress(),
-      result[12].toBytes()
+      result[12].toBytes(),
     );
   }
 
@@ -1131,7 +1131,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposals",
       "proposals(uint256):(uint32,uint32,uint32,uint32,uint32,uint32,uint256,uint256,uint256,uint256,uint256,address,bytes32)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1151,8 +1151,8 @@ export class Baal extends ethereum.SmartContract {
         value[9].toBigInt(),
         value[10].toBigInt(),
         value[11].toAddress(),
-        value[12].toBytes()
-      )
+        value[12].toBytes(),
+      ),
     );
   }
 
@@ -1166,7 +1166,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "quorumPercent",
       "quorumPercent():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1177,7 +1177,7 @@ export class Baal extends ethereum.SmartContract {
 
   shamans(param0: Address): BigInt {
     let result = super.call("shamans", "shamans(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
 
     return result[0].toBigInt();
@@ -1185,7 +1185,7 @@ export class Baal extends ethereum.SmartContract {
 
   try_shamans(param0: Address): ethereum.CallResult<BigInt> {
     let result = super.tryCall("shamans", "shamans(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1213,7 +1213,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "sponsorThreshold",
       "sponsorThreshold():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -1223,7 +1223,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "sponsorThreshold",
       "sponsorThreshold():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1234,7 +1234,7 @@ export class Baal extends ethereum.SmartContract {
 
   state(id: BigInt): i32 {
     let result = super.call("state", "state(uint32):(uint8)", [
-      ethereum.Value.fromUnsignedBigInt(id)
+      ethereum.Value.fromUnsignedBigInt(id),
     ]);
 
     return result[0].toI32();
@@ -1242,7 +1242,7 @@ export class Baal extends ethereum.SmartContract {
 
   try_state(id: BigInt): ethereum.CallResult<i32> {
     let result = super.tryCall("state", "state(uint32):(uint8)", [
-      ethereum.Value.fromUnsignedBigInt(id)
+      ethereum.Value.fromUnsignedBigInt(id),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1315,7 +1315,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "trustedForwarder",
       "trustedForwarder():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -1325,7 +1325,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "trustedForwarder",
       "trustedForwarder():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1338,7 +1338,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.call(
       "versionRecipient",
       "versionRecipient():(string)",
-      []
+      [],
     );
 
     return result[0].toString();
@@ -1348,7 +1348,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "versionRecipient",
       "versionRecipient():(string)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1359,7 +1359,7 @@ export class Baal extends ethereum.SmartContract {
 
   votingNonces(param0: Address): BigInt {
     let result = super.call("votingNonces", "votingNonces(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
 
     return result[0].toBigInt();
@@ -1369,7 +1369,7 @@ export class Baal extends ethereum.SmartContract {
     let result = super.tryCall(
       "votingNonces",
       "votingNonces(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
