@@ -8,7 +8,11 @@ dataSources:
     name: summoner
     network: sepolia
     source:
+<<<<<<< HEAD
       address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0"
+=======
+      address: "0x22e0382194AC1e9929E023bBC2fD2BA6b778E098"
+>>>>>>> master
       abi: summoner
       startBlock: 5110553
     mapping:
