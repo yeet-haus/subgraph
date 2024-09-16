@@ -2,24 +2,13 @@
   "name": "yeeterv2",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create odyssy-automaton/yeeter-dh-ui-v2 --node https://api.thegraph.com/deploy/",
     "codegen": "graph codegen",
     "build": "graph build",
-    "create-local": "graph create odyssy-automaton/yeeter-dh-ui-v2 --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy odyssy-automaton/yeeter-dh-ui-v2 --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
     "build:all": "yarn codegen && yarn build",
-    "prepare:sepolia": "node manifests/deploy-prep.js sepolia",
-    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --studio yeeter-sepolia",
-    "prepare:gnosis": "node manifests/deploy-prep.js gnosis",
-    "deploy:gnosis": "yarn prepare:gnosis && yarn build:all && graph deploy --studio yeeter-gnosis",
+    "prepare:sepolia": "node manifests/deploy-prep.js base-sepolia",
+    "deploy:sepolia": "yarn prepare:sepolia && yarn build:all && graph deploy --studio proof-of-drink-base-sepolia",
     "prepare:base": "node manifests/deploy-prep.js base",
-    "deploy:base": "yarn prepare:base && yarn build:all && graph deploy --studio yeeter-base-v1",
-    "prepare:arbitrum-one": "node manifests/deploy-prep.js arbitrum-one",
-    "deploy:arbitrum-one": "yarn prepare:arbitrum-one && yarn build:all && graph deploy --studio yeeter-arbitrum",
-    "prepare:optimism": "node manifests/deploy-prep.js optimism",
-    "deploy:optimism": "yarn prepare:optimism && yarn build:all && graph deploy --studio yeeter-optimism",
-    "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
-    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --studio yeeter-mainnet"
+    "deploy:base": "yarn prepare:base && yarn build:all && graph deploy --studio proof-of-drink-base"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "^0.35.1",

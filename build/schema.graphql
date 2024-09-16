@@ -1,44 +1,28 @@
-type Dao @entity {
+type PODToken @entity {
   id: ID!
   createdAt: BigInt!
-  referrer: String
-  lootAddress: Bytes!
-  sharesAddress: Bytes!
-  shareTokenSymbol: String
-  lootTokenSymbol: String
-  yeeters: [Yeeter!] @derivedFrom(field: "dao")
-  yeets: [Yeet!] @derivedFrom(field: "dao")
+  tokenId: BigInt!
+  uri: String!
+  totalClaims: BigInt!
+  balances: [Balance!]! @derivedFrom(field: "token")
+  claims: [Claim!]! @derivedFrom(field: "token")
 }
 
-type Yeeter @entity {
+type Account @entity {
   id: ID!
-  createdAt: BigInt!
-  dao: Dao!
-  startTime: BigInt
-  endTime: BigInt
-  isShares: Boolean
-  multiplier: BigInt
-  minTribute: BigInt
-  goal: BigInt
-  balance: BigInt!
-  vault: Bytes
-  yeetCount: BigInt!
-  yeeterType: String
-  tokenAddress: Bytes
-  tokenDecimals: BigInt
-  tokenName: String
-  tokenSymbol: String
-  yeets: [Yeet!] @derivedFrom(field: "yeeter")
+  address: Bytes!
+  balances: [Balance!]! @derivedFrom(field: "account")
 }
 
-type Yeet @entity {
+type Balance @entity {
   id: ID!
-  createdAt: BigInt!
-  dao: Dao!
-  yeeter: Yeeter!
-  contributor: Bytes!
-  amount: BigInt!
-  shares: BigInt!
-  message: String
-  txHash: Bytes!
+  token: PODToken!
+  account: Account!
+  value: BigInt!
+}
+
+type Claim @entity {
+  id: ID!
+  token: PODToken!
+  code: String!
 }

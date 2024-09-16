@@ -1,75 +1,39 @@
 specVersion: 0.0.4
-description: YeeterSubgraph
-repository: 'https://github.com/0xBootleggers/yeeter-subgraph'
+description: PODv2Subgraph
+repository: 'https://github.com/raid-brood/subgraph'
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: summoner
-    network: mainnet
+    name: pod
+    network: base-sepolia
     source:
-      address: '0x7e988A9db2F8597735fc68D21060Daed948a3e8C'
-      abi: summoner
-      startBlock: 16028392
+      address: '0x2b530b015a096267d71ed54d797238479e817ab5'
+      abi: pod
+      startBlock: 14175025
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Dao
+        - Pod
       abis:
-        - name: summoner
-          file: ./abis/summoner.json
-        - name: Erc20
-          file: ./abis/erc20.json
+        - name: pod
+          file: ./abis/pod.json
       eventHandlers:
         - event: >-
-            SummonBaal(indexed address,indexed address,indexed
-            address,address,address,uint256)
-          handler: handleSummonBaal
-        - event: 'DaoReferral(bytes32,address)'
-          handler: handleDaoReferral
-      file: ./src/summoner-mapping.ts
-templates:
-  - kind: ethereum/contract
-    name: BaalTemplate
-    network: mainnet
-    source:
-      abi: Baal
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/baal-mapping.ts
-      entities:
-        - Dao
-      abis:
-        - name: Baal
-          file: ./abis/baal.json
-        - name: YeeterShaman
-          file: ./abis/yeeterShaman.json
-        - name: Erc20
-          file: ./abis/erc20.json
-      eventHandlers:
-        - event: 'ShamanSet(indexed address,uint256)'
-          handler: handleShamanSet
-  - kind: ethereum/contract
-    name: YeeterShamanTemplate
-    network: mainnet
-    source:
-      abi: YeeterShaman
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/yeeter-mapping.ts
-      entities:
-        - Dao
-        - Yeeter
-        - Yeets
-      abis:
-        - name: YeeterShaman
-          file: ./abis/yeeterShaman.json
-      eventHandlers:
-        - event: 'OnReceived(indexed address,uint256,uint256,address,address,string)'
-          handler: handleOnReceived
+            TransferBatch(indexed address,indexed address,indexed
+            address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: >-
+            TransferSingle(indexed address,indexed address,indexed
+            address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: 'Created(indexed uint256,bytes32,string)'
+          handler: handleCreated
+        - event: 'Claimed(indexed address,indexed uint256,string)'
+          handler: handleClaimed
+        - event: 'TokenURISet(indexed uint256,string)'
+          handler: handleTokenURISet
+      file: ./src/pod-mapping.ts
+templates: []

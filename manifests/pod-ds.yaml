@@ -1,0 +1,28 @@
+kind: ethereum/contract
+name: pod
+network:
+source:
+  address: ""
+  abi: pod
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Pod
+  abis:
+    - name: pod
+      file: ./abis/pod.json
+  eventHandlers:
+    - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+      handler: handleTransferBatch
+    - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+      handler: handleTransferSingle
+    - event: Created(indexed uint256,bytes32,string)
+      handler: handleCreated
+    - event: Claimed(indexed address,indexed uint256,string)
+      handler: handleClaimed
+    - event: TokenURISet(indexed uint256,string)
+      handler: handleTokenURISet
+  file: ./src/pod-mapping.ts
