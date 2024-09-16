@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: PODv2Subgraph
-repository: "https://github.com/raid-brood/subgraph"
+description: YeeterSubgraph
+repository: "https://github.com/0xBootleggers/yeeter-subgraph"
 schema:
   file: ./schema.graphql
 dataSources: []

@@ -1,35 +1,101 @@
 specVersion: 0.0.4
-description: PODv2Subgraph
-repository: https://github.com/raid-brood/subgraph
+description: YeeterSubgraph
+repository: https://github.com/0xBootleggers/yeeter-subgraph
 schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: pod
-    network: base-sepolia
+    name: summoner
+    network: sepolia
     source:
-      address: "0x2b530b015a096267d71ed54d797238479e817ab5"
-      abi: pod
-      startBlock: 14175025
+<<<<<<< HEAD
+      address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0"
+=======
+      address: "0x22e0382194AC1e9929E023bBC2fD2BA6b778E098"
+>>>>>>> master
+      abi: summoner
+      startBlock: 5110553
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Pod
+        - Dao
       abis:
-        - name: pod
-          file: pod/abis/pod.json
+        - name: summoner
+          file: summoner/abis/summoner.json
+        - name: Erc20
+          file: summoner/abis/erc20.json
       eventHandlers:
-        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
-          handler: handleTransferBatch
-        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
-          handler: handleTransferSingle
-        - event: Created(indexed uint256,bytes32,string)
-          handler: handleCreated
-        - event: Claimed(indexed address,indexed uint256,string)
-          handler: handleClaimed
-        - event: TokenURISet(indexed uint256,string)
-          handler: handleTokenURISet
-      file: pod/pod.wasm
-templates: []
+        - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
+          handler: handleSummonBaal
+        - event: DaoReferral(bytes32,address)
+          handler: handleDaoReferral
+      file: summoner/summoner.wasm
+templates:
+  - kind: ethereum/contract
+    name: BaalTemplate
+    network: sepolia
+    source:
+      abi: Baal
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/BaalTemplate/BaalTemplate.wasm
+      entities:
+        - Dao
+      abis:
+        - name: Baal
+          file: BaalTemplate/abis/baal.json
+        - name: YeeterShaman
+          file: BaalTemplate/abis/yeeterShaman.json
+        - name: Erc20
+          file: BaalTemplate/abis/erc20.json
+      eventHandlers:
+        - event: ShamanSet(indexed address,uint256)
+          handler: handleShamanSet
+  - kind: ethereum/contract
+    name: YeeterShamanTemplate
+    network: sepolia
+    source:
+      abi: YeeterShaman
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/YeeterShamanTemplate/YeeterShamanTemplate.wasm
+      entities:
+        - Dao
+        - Yeeter
+        - Yeets
+      abis:
+        - name: YeeterShaman
+          file: YeeterShamanTemplate/abis/yeeterShaman.json
+      eventHandlers:
+        - event: OnReceived(indexed address,uint256,uint256,address,address,string)
+          handler: handleOnReceived
+  - kind: ethereum/contract
+    name: Erc20YeeterShamanTemplate
+    network: sepolia
+    source:
+      abi: Erc20YeeterShaman
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/YeeterShamanTemplate/YeeterShamanTemplate.wasm
+      entities:
+        - Dao
+        - Yeeter
+        - Yeets
+      abis:
+        - name: Erc20YeeterShaman
+          file: Erc20YeeterShamanTemplate/abis/erc20YeeterShaman.json
+        - name: Erc20
+          file: Erc20YeeterShamanTemplate/abis/erc20.json
+        - name: Erc20Bytes32
+          file: Erc20YeeterShamanTemplate/abis/erc20Bytes32.json
+      eventHandlers:
+        - event: OnReceivedERC20(indexed address,uint256,uint256,address,address,string,address)
+          handler: handleOnReceivedERC20

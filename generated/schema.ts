@@ -11,7 +11,7 @@ import {
   BigDecimal,
 } from "@graphprotocol/graph-ts";
 
-export class PODToken extends Entity {
+export class Dao extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,22 +19,22 @@ export class PODToken extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save PODToken entity without an ID");
+    assert(id != null, "Cannot save Dao entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type PODToken must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        `Entities of type Dao must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("PODToken", id.toString(), this);
+      store.set("Dao", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): PODToken | null {
-    return changetype<PODToken | null>(store.get_in_block("PODToken", id));
+  static loadInBlock(id: string): Dao | null {
+    return changetype<Dao | null>(store.get_in_block("Dao", id));
   }
 
-  static load(id: string): PODToken | null {
-    return changetype<PODToken | null>(store.get("PODToken", id));
+  static load(id: string): Dao | null {
+    return changetype<Dao | null>(store.get("Dao", id));
   }
 
   get id(): string {
@@ -63,99 +63,25 @@ export class PODToken extends Entity {
     this.set("createdAt", Value.fromBigInt(value));
   }
 
-  get tokenId(): BigInt {
-    let value = this.get("tokenId");
+  get referrer(): string | null {
+    let value = this.get("referrer");
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set tokenId(value: BigInt) {
-    this.set("tokenId", Value.fromBigInt(value));
-  }
-
-  get uri(): string {
-    let value = this.get("uri");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+      return null;
     } else {
       return value.toString();
     }
   }
 
-  set uri(value: string) {
-    this.set("uri", Value.fromString(value));
-  }
-
-  get totalClaims(): BigInt {
-    let value = this.get("totalClaims");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+  set referrer(value: string | null) {
+    if (!value) {
+      this.unset("referrer");
     } else {
-      return value.toBigInt();
+      this.set("referrer", Value.fromString(<string>value));
     }
   }
 
-  set totalClaims(value: BigInt) {
-    this.set("totalClaims", Value.fromBigInt(value));
-  }
-
-  get balances(): BalanceLoader {
-    return new BalanceLoader(
-      "PODToken",
-      this.get("id")!.toString(),
-      "balances",
-    );
-  }
-
-  get claims(): ClaimLoader {
-    return new ClaimLoader("PODToken", this.get("id")!.toString(), "claims");
-  }
-}
-
-export class Account extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Account entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type Account must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
-      );
-      store.set("Account", id.toString(), this);
-    }
-  }
-
-  static loadInBlock(id: string): Account | null {
-    return changetype<Account | null>(store.get_in_block("Account", id));
-  }
-
-  static load(id: string): Account | null {
-    return changetype<Account | null>(store.get("Account", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get address(): Bytes {
-    let value = this.get("address");
+  get lootAddress(): Bytes {
+    let value = this.get("lootAddress");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -163,16 +89,67 @@ export class Account extends Entity {
     }
   }
 
-  set address(value: Bytes) {
-    this.set("address", Value.fromBytes(value));
+  set lootAddress(value: Bytes) {
+    this.set("lootAddress", Value.fromBytes(value));
   }
 
-  get balances(): BalanceLoader {
-    return new BalanceLoader("Account", this.get("id")!.toString(), "balances");
+  get sharesAddress(): Bytes {
+    let value = this.get("sharesAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set sharesAddress(value: Bytes) {
+    this.set("sharesAddress", Value.fromBytes(value));
+  }
+
+  get shareTokenSymbol(): string | null {
+    let value = this.get("shareTokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set shareTokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("shareTokenSymbol");
+    } else {
+      this.set("shareTokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
+  get lootTokenSymbol(): string | null {
+    let value = this.get("lootTokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lootTokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("lootTokenSymbol");
+    } else {
+      this.set("lootTokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
+  get yeeters(): YeeterLoader {
+    return new YeeterLoader("Dao", this.get("id")!.toString(), "yeeters");
+  }
+
+  get yeets(): YeetLoader {
+    return new YeetLoader("Dao", this.get("id")!.toString(), "yeets");
   }
 }
 
-export class Balance extends Entity {
+export class Yeeter extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -180,22 +157,22 @@ export class Balance extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Balance entity without an ID");
+    assert(id != null, "Cannot save Yeeter entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Balance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        `Entities of type Yeeter must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("Balance", id.toString(), this);
+      store.set("Yeeter", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): Balance | null {
-    return changetype<Balance | null>(store.get_in_block("Balance", id));
+  static loadInBlock(id: string): Yeeter | null {
+    return changetype<Yeeter | null>(store.get_in_block("Yeeter", id));
   }
 
-  static load(id: string): Balance | null {
-    return changetype<Balance | null>(store.get("Balance", id));
+  static load(id: string): Yeeter | null {
+    return changetype<Yeeter | null>(store.get("Yeeter", id));
   }
 
   get id(): string {
@@ -211,34 +188,8 @@ export class Balance extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get token(): string {
-    let value = this.get("token");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set token(value: string) {
-    this.set("token", Value.fromString(value));
-  }
-
-  get account(): string {
-    let value = this.get("account");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set account(value: string) {
-    this.set("account", Value.fromString(value));
-  }
-
-  get value(): BigInt {
-    let value = this.get("value");
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -246,12 +197,255 @@ export class Balance extends Entity {
     }
   }
 
-  set value(value: BigInt) {
-    this.set("value", Value.fromBigInt(value));
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get dao(): string {
+    let value = this.get("dao");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set dao(value: string) {
+    this.set("dao", Value.fromString(value));
+  }
+
+  get startTime(): BigInt | null {
+    let value = this.get("startTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set startTime(value: BigInt | null) {
+    if (!value) {
+      this.unset("startTime");
+    } else {
+      this.set("startTime", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get endTime(): BigInt | null {
+    let value = this.get("endTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set endTime(value: BigInt | null) {
+    if (!value) {
+      this.unset("endTime");
+    } else {
+      this.set("endTime", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get isShares(): boolean {
+    let value = this.get("isShares");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set isShares(value: boolean) {
+    this.set("isShares", Value.fromBoolean(value));
+  }
+
+  get multiplier(): BigInt | null {
+    let value = this.get("multiplier");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set multiplier(value: BigInt | null) {
+    if (!value) {
+      this.unset("multiplier");
+    } else {
+      this.set("multiplier", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get minTribute(): BigInt | null {
+    let value = this.get("minTribute");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set minTribute(value: BigInt | null) {
+    if (!value) {
+      this.unset("minTribute");
+    } else {
+      this.set("minTribute", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get goal(): BigInt | null {
+    let value = this.get("goal");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set goal(value: BigInt | null) {
+    if (!value) {
+      this.unset("goal");
+    } else {
+      this.set("goal", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get balance(): BigInt {
+    let value = this.get("balance");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
+  }
+
+  get vault(): Bytes | null {
+    let value = this.get("vault");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set vault(value: Bytes | null) {
+    if (!value) {
+      this.unset("vault");
+    } else {
+      this.set("vault", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get yeetCount(): BigInt {
+    let value = this.get("yeetCount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set yeetCount(value: BigInt) {
+    this.set("yeetCount", Value.fromBigInt(value));
+  }
+
+  get yeeterType(): string | null {
+    let value = this.get("yeeterType");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set yeeterType(value: string | null) {
+    if (!value) {
+      this.unset("yeeterType");
+    } else {
+      this.set("yeeterType", Value.fromString(<string>value));
+    }
+  }
+
+  get tokenAddress(): Bytes | null {
+    let value = this.get("tokenAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenAddress(value: Bytes | null) {
+    if (!value) {
+      this.unset("tokenAddress");
+    } else {
+      this.set("tokenAddress", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get tokenDecimals(): BigInt | null {
+    let value = this.get("tokenDecimals");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenDecimals(value: BigInt | null) {
+    if (!value) {
+      this.unset("tokenDecimals");
+    } else {
+      this.set("tokenDecimals", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get tokenName(): string | null {
+    let value = this.get("tokenName");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tokenName(value: string | null) {
+    if (!value) {
+      this.unset("tokenName");
+    } else {
+      this.set("tokenName", Value.fromString(<string>value));
+    }
+  }
+
+  get tokenSymbol(): string | null {
+    let value = this.get("tokenSymbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tokenSymbol(value: string | null) {
+    if (!value) {
+      this.unset("tokenSymbol");
+    } else {
+      this.set("tokenSymbol", Value.fromString(<string>value));
+    }
+  }
+
+  get yeets(): YeetLoader {
+    return new YeetLoader("Yeeter", this.get("id")!.toString(), "yeets");
   }
 }
 
-export class Claim extends Entity {
+export class Yeet extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -259,22 +453,22 @@ export class Claim extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Claim entity without an ID");
+    assert(id != null, "Cannot save Yeet entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Claim must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        `Entities of type Yeet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("Claim", id.toString(), this);
+      store.set("Yeet", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): Claim | null {
-    return changetype<Claim | null>(store.get_in_block("Claim", id));
+  static loadInBlock(id: string): Yeet | null {
+    return changetype<Yeet | null>(store.get_in_block("Yeet", id));
   }
 
-  static load(id: string): Claim | null {
-    return changetype<Claim | null>(store.get("Claim", id));
+  static load(id: string): Yeet | null {
+    return changetype<Yeet | null>(store.get("Yeet", id));
   }
 
   get id(): string {
@@ -290,8 +484,21 @@ export class Claim extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get token(): string {
-    let value = this.get("token");
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get dao(): string {
+    let value = this.get("dao");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -299,12 +506,12 @@ export class Claim extends Entity {
     }
   }
 
-  set token(value: string) {
-    this.set("token", Value.fromString(value));
+  set dao(value: string) {
+    this.set("dao", Value.fromString(value));
   }
 
-  get code(): string {
-    let value = this.get("code");
+  get yeeter(): string {
+    let value = this.get("yeeter");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -312,12 +519,81 @@ export class Claim extends Entity {
     }
   }
 
-  set code(value: string) {
-    this.set("code", Value.fromString(value));
+  set yeeter(value: string) {
+    this.set("yeeter", Value.fromString(value));
+  }
+
+  get contributor(): Bytes {
+    let value = this.get("contributor");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set contributor(value: Bytes) {
+    this.set("contributor", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get shares(): BigInt {
+    let value = this.get("shares");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set shares(value: BigInt) {
+    this.set("shares", Value.fromBigInt(value));
+  }
+
+  get message(): string | null {
+    let value = this.get("message");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set message(value: string | null) {
+    if (!value) {
+      this.unset("message");
+    } else {
+      this.set("message", Value.fromString(<string>value));
+    }
+  }
+
+  get txHash(): Bytes {
+    let value = this.get("txHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set txHash(value: Bytes) {
+    this.set("txHash", Value.fromBytes(value));
   }
 }
 
-export class BalanceLoader extends Entity {
+export class YeeterLoader extends Entity {
   _entity: string;
   _field: string;
   _id: string;
@@ -329,13 +605,13 @@ export class BalanceLoader extends Entity {
     this._field = field;
   }
 
-  load(): Balance[] {
+  load(): Yeeter[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
-    return changetype<Balance[]>(value);
+    return changetype<Yeeter[]>(value);
   }
 }
 
-export class ClaimLoader extends Entity {
+export class YeetLoader extends Entity {
   _entity: string;
   _field: string;
   _id: string;
@@ -347,8 +623,8 @@ export class ClaimLoader extends Entity {
     this._field = field;
   }
 
-  load(): Claim[] {
+  load(): Yeet[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
-    return changetype<Claim[]>(value);
+    return changetype<Yeet[]>(value);
   }
 }

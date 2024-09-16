@@ -1,4 +1,4 @@
-import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
+import { BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace constants {
@@ -9,7 +9,19 @@ export namespace constants {
   export const BIGINT_THREE = BigInt.fromI32(3);
   export const FUTURE_TIMESTAMP = BigInt.fromI64(9999999999);
   export const BIGDECIMAL_ZERO = new BigDecimal(constants.BIGINT_ZERO);
-  export const ADDRESS_ZERO = Address.fromString(
-    "0x0000000000000000000000000000000000000000"
-  );
+  export const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
+  export const BYTES32_ZERO =
+    "0x0000000000000000000000000000000000000000000000000000000000000000";
+  export const YEETER_SHAMAN_NAME = "EthYeeter:0.0.2";
+  export const ERC20_YEETER_SHAMAN_NAME = "ERC20Yeeter:0.0.1";
 }
+
+export const VALID_SHAMANS = [
+  constants.YEETER_SHAMAN_NAME,
+  constants.ERC20_YEETER_SHAMAN_NAME,
+];
+
+// export const SHAMAN_TYPES = {
+//   [constants.YEETER_SHAMAN_NAME]: "ethYeeter",
+//   [constants.ERC20_YEETER_SHAMAN_NAME]: "erc20Yeeter",
+// };
