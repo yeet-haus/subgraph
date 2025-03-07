@@ -8,11 +8,7 @@ dataSources:
     name: summoner
     network: sepolia
     source:
-<<<<<<< HEAD
       address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0"
-=======
-      address: "0x22e0382194AC1e9929E023bBC2fD2BA6b778E098"
->>>>>>> master
       abi: summoner
       startBlock: 5110553
     mapping:
@@ -31,6 +27,29 @@ dataSources:
           handler: handleSummonBaal
         - event: DaoReferral(bytes32,address)
           handler: handleDaoReferral
+      file: summoner/summoner.wasm
+  - kind: ethereum/contract
+    name: yeeterFactory
+    network: sepolia
+    source:
+      address: "0x4C841D5b61d820584638C533A1fEb16BfB2D934D"
+      abi: yeeterFactory
+      startBlock: 7853779
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Dao
+        - Yeeter
+      abis:
+        - name: yeeterFactory
+          file: yeeterFactory/abis/yeeterFactory.json
+        - name: YeeterShaman
+          file: yeeterFactory/abis/yeeterShaman.json
+      eventHandlers:
+        - event: CreateUnsetEthYeeter(indexed address,address)
+          handler: handleCreateUnsetEthYeeter
       file: summoner/summoner.wasm
 templates:
   - kind: ethereum/contract
@@ -75,27 +94,3 @@ templates:
       eventHandlers:
         - event: OnReceived(indexed address,uint256,uint256,address,address,string)
           handler: handleOnReceived
-  - kind: ethereum/contract
-    name: Erc20YeeterShamanTemplate
-    network: sepolia
-    source:
-      abi: Erc20YeeterShaman
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: templates/YeeterShamanTemplate/YeeterShamanTemplate.wasm
-      entities:
-        - Dao
-        - Yeeter
-        - Yeets
-      abis:
-        - name: Erc20YeeterShaman
-          file: Erc20YeeterShamanTemplate/abis/erc20YeeterShaman.json
-        - name: Erc20
-          file: Erc20YeeterShamanTemplate/abis/erc20.json
-        - name: Erc20Bytes32
-          file: Erc20YeeterShamanTemplate/abis/erc20Bytes32.json
-      eventHandlers:
-        - event: OnReceivedERC20(indexed address,uint256,uint256,address,address,string,address)
-          handler: handleOnReceivedERC20

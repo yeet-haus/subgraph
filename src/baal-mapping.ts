@@ -24,6 +24,8 @@ export function handleShamanSet(event: ShamanSet): void {
 
   let dao = Dao.load(event.address.toHexString());
   if (dao === null) {
+    log.info("no dao, {}", [event.address.toHexString()]);
+
     // does this ever happen? probably should return here
     // dao = new Dao(event.address.toHexString());
     // dao.createdAt = event.block.timestamp;
@@ -60,6 +62,7 @@ export function handleShamanSet(event: ShamanSet): void {
     yeeter.balance = constants.BIGINT_ZERO;
     yeeter.yeetCount = constants.BIGINT_ZERO;
     yeeter.yeeterType = yeeterType;
+    yeeter.isSet = true;
     YeeterShamanTemplate.create(event.params.shaman);
   }
 

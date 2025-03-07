@@ -28,6 +28,7 @@ type Yeeter @entity {
   tokenDecimals: BigInt
   tokenName: String
   tokenSymbol: String
+  isSet: Boolean!
   yeets: [Yeet!] @derivedFrom(field: "yeeter")
 }
 

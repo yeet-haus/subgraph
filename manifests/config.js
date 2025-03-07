@@ -67,6 +67,12 @@ module.exports.config = {
         address: "0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0",
         startBlock: 5110553,
       },
+      {
+        name: "yeeterFactory",
+        template: "yeeterFactory-ds.yaml",
+        address: "0x4C841D5b61d820584638C533A1fEb16BfB2D934D",
+        startBlock: 7853779,
+      },
     ],
     templates: [
       {
@@ -77,10 +83,10 @@ module.exports.config = {
         name: "yeeterTemplate",
         template: "yeeterShaman-template.yaml",
       },
-      {
-        name: "erc20YeeterTemplate",
-        template: "erc20YeeterShaman-template.yaml",
-      },
+      // {
+      //   name: "erc20YeeterTemplate",
+      //   template: "erc20YeeterShaman-template.yaml",
+      // },
     ],
   },
   optimism: {

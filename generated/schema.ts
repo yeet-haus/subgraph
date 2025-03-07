@@ -440,6 +440,19 @@ export class Yeeter extends Entity {
     }
   }
 
+  get isSet(): boolean {
+    let value = this.get("isSet");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set isSet(value: boolean) {
+    this.set("isSet", Value.fromBoolean(value));
+  }
+
   get yeets(): YeetLoader {
     return new YeetLoader("Yeeter", this.get("id")!.toString(), "yeets");
   }

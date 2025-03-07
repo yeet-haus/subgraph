@@ -1,0 +1,23 @@
+kind: ethereum/contract
+name: yeeterFactory
+network:
+source:
+  address: ""
+  abi: yeeterFactory
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Dao
+    - Yeeter
+  abis:
+    - name: yeeterFactory
+      file: ./abis/yeeterFactory.json
+    - name: YeeterShaman
+      file: ./abis/yeeterShaman.json
+  eventHandlers:
+    - event: CreateUnsetEthYeeter(indexed address,address)
+      handler: handleCreateUnsetEthYeeter
+  file: ./src/summoner-mapping.ts

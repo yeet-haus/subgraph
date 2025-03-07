@@ -1,8 +1,10 @@
 import { DaoReferral, SummonBaal } from "../generated/summoner/summoner";
-import { BaalTemplate } from "../generated/templates";
-import { Dao } from "../generated/schema";
-import { getErc20Symbol } from "./util/general";
+import { CreateUnsetEthYeeter } from "../generated/yeeterFactory/yeeterFactory";
+import { BaalTemplate, YeeterShamanTemplate } from "../generated/templates";
+import { Dao, Yeeter } from "../generated/schema";
+import { getErc20Symbol, getShamanName } from "./util/general";
 import { log } from "@graphprotocol/graph-ts";
+import { constants, VALID_SHAMANS } from "./util/constants";
 
 export function handleSummonBaal(event: SummonBaal): void {
   BaalTemplate.create(event.params.baal);
@@ -33,4 +35,47 @@ export function handleDaoReferral(event: DaoReferral): void {
   dao.referrer = event.params.referrer.toString();
 
   dao.save();
+}
+
+export function handleCreateUnsetEthYeeter(event: CreateUnsetEthYeeter): void {
+  log.info("handleCreateUnsetEthYeeter baal, {}", [
+    event.params.baal.toHexString(),
+  ]);
+  const shamanName = getShamanName(event.params.yeeter);
+
+  if (shamanName == null) {
+    log.info("handleCreateUnsetEthYeeter no shaman, {}", [
+      event.params.yeeter.toHexString(),
+    ]);
+
+    return;
+  }
+
+  const validShaman = shamanName !== null && VALID_SHAMANS.includes(shamanName);
+  if (!validShaman) {
+    log.info("handleCreateUnsetEthYeeter no shaman match shamanName, {}", [
+      event.params.yeeter.toHexString(),
+    ]);
+
+    return;
+  }
+
+  const yeeterType = shamanName;
+  const yeeterId = event.params.yeeter.toHexString();
+
+  let yeeter = Yeeter.load(yeeterId);
+  if (yeeter === null) {
+    yeeter = new Yeeter(yeeterId);
+    yeeter.createdAt = event.block.timestamp;
+    yeeter.dao = event.params.baal.toHexString();
+    yeeter.balance = constants.BIGINT_ZERO;
+    yeeter.yeetCount = constants.BIGINT_ZERO;
+    yeeter.yeeterType = yeeterType;
+    yeeter.isSet = false;
+    YeeterShamanTemplate.create(event.params.yeeter);
+  }
+
+  log.info("handleCreateUnsetEthYeeter saving yeeter, {}", [yeeterId]);
+
+  yeeter.save();
 }
