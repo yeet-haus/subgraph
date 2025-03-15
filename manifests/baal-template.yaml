@@ -17,6 +17,8 @@ mapping:
       file: ./abis/yeeterShaman.json
     - name: Erc20
       file: ./abis/erc20.json
+    - name: Erc20YeeterShaman
+      file: ./abis/erc20YeeterShaman.json
   eventHandlers:
     - event: "ShamanSet(indexed address,uint256)"
       handler: handleShamanSet

@@ -60,7 +60,9 @@ export function handleCreateUnsetEthYeeter(event: CreateUnsetEthYeeter): void {
     return;
   }
 
-  const yeeterType = shamanName;
+  const yeeterType = constants.YEETER_SHAMAN_NAME
+    ? constants.ERC20_YEETER_SHAMAN_TYPE
+    : constants.ERC20_YEETER_SHAMAN_TYPE;
   const yeeterId = event.params.yeeter.toHexString();
 
   let yeeter = Yeeter.load(yeeterId);
@@ -74,8 +76,6 @@ export function handleCreateUnsetEthYeeter(event: CreateUnsetEthYeeter): void {
     yeeter.isSet = false;
     YeeterShamanTemplate.create(event.params.yeeter);
   }
-
-  log.info("handleCreateUnsetEthYeeter saving yeeter, {}", [yeeterId]);
 
   yeeter.save();
 }

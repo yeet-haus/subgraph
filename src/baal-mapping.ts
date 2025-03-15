@@ -52,7 +52,9 @@ export function handleShamanSet(event: ShamanSet): void {
 
   const yeeterId = event.params.shaman.toHexString();
 
-  const yeeterType = shamanName;
+  const yeeterType = constants.YEETER_SHAMAN_NAME
+    ? constants.ERC20_YEETER_SHAMAN_TYPE
+    : constants.ERC20_YEETER_SHAMAN_TYPE;
 
   let yeeter = Yeeter.load(yeeterId);
   if (yeeter === null) {
@@ -74,7 +76,7 @@ export function handleShamanSet(event: ShamanSet): void {
   yeeter.goal = getGoal(event.params.shaman);
   yeeter.vault = getVault(event.params.shaman);
 
-  if (yeeterType == "erc20Yeeter") {
+  if (yeeterType == constants.ERC20_YEETER_SHAMAN_TYPE) {
     const tokenAddress = getToken(event.params.shaman);
     if (tokenAddress) {
       yeeter.tokenAddress = tokenAddress;
