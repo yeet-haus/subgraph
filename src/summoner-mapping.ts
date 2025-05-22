@@ -69,6 +69,7 @@ export function handleCreateUnsetEthYeeter(event: CreateUnsetEthYeeter): void {
   if (yeeter === null) {
     yeeter = new Yeeter(yeeterId);
     yeeter.createdAt = event.block.timestamp;
+    yeeter.txHash = event.transaction.hash;
     yeeter.dao = event.params.baal.toHexString();
     yeeter.balance = constants.BIGINT_ZERO;
     yeeter.yeetCount = constants.BIGINT_ZERO;

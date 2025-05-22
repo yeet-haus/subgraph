@@ -13,6 +13,7 @@ type Dao @entity {
 type Yeeter @entity {
   id: ID!
   createdAt: BigInt!
+  txHash: Bytes!
   dao: Dao!
   startTime: BigInt
   endTime: BigInt

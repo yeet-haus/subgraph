@@ -60,6 +60,7 @@ export function handleShamanSet(event: ShamanSet): void {
   if (yeeter === null) {
     yeeter = new Yeeter(yeeterId);
     yeeter.createdAt = event.block.timestamp;
+    yeeter.txHash = event.transaction.hash;
     yeeter.dao = event.address.toHexString();
     yeeter.balance = constants.BIGINT_ZERO;
     yeeter.yeetCount = constants.BIGINT_ZERO;
