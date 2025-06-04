@@ -33,3 +33,17 @@ export class YeeterShamanTemplate extends DataSourceTemplate {
     );
   }
 }
+
+export class Erc20YeeterShamanTemplate extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("Erc20YeeterShamanTemplate", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "Erc20YeeterShamanTemplate",
+      [address.toHex()],
+      context,
+    );
+  }
+}

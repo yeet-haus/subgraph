@@ -30,8 +30,8 @@ module.exports.config = {
       {
         name: "yeeterFactory",
         template: "yeeterFactory-ds.yaml",
-        address: "0x62fF4Ca410E9e58f5ce8B2Ad03695EF0ad990381",
-        startBlock: 314633128,
+        address: "0xbab498fb934fe1661bb707dff1730bae12a1a691",
+        startBlock: 343891365,
       },
     ],
     templates: [
@@ -60,8 +60,8 @@ module.exports.config = {
       {
         name: "yeeterFactory",
         template: "yeeterFactory-ds.yaml",
-        address: "0xeCcb018e5aa81cb3Ffb175fD56f0a38b3CC4F6cf",
-        startBlock: 38982639,
+        address: "0x4c5a8dd88e8E925330026014D0aB96926563f213",
+        startBlock: 40414354,
       },
     ],
     templates: [
@@ -90,8 +90,8 @@ module.exports.config = {
       {
         name: "yeeterFactory",
         template: "yeeterFactory-ds.yaml",
-        address: "0xBbBb973B5f2E0E926CfB8a2E4fc8638C4ff41AC1",
-        startBlock: 7881550,
+        address: "0xddcef6B4b6861a617f89bd0917C9BcbCfe50F187",
+        startBlock: 8476455,
       },
     ],
     templates: [
@@ -120,8 +120,8 @@ module.exports.config = {
       {
         name: "yeeterFactory",
         template: "yeeterFactory-ds.yaml",
-        address: "0x62fF4Ca410E9e58f5ce8B2Ad03695EF0ad990381",
-        startBlock: 133057103,
+        address: "0x97d7753882f8bAb3E96EFD9a8a17CA1C769Cd7cC",
+        startBlock: 136729967,
       },
     ],
     templates: [
@@ -150,8 +150,8 @@ module.exports.config = {
       {
         name: "yeeterFactory",
         template: "yeeterFactory-ds.yaml",
-        address: "0x62fF4Ca410E9e58f5ce8B2Ad03695EF0ad990381",
-        startBlock: 27461738,
+        address: "0x313f9A3C9A5041e9be00cf88b18962581A4eFb35",
+        startBlock: 31133882,
       },
     ],
     templates: [
